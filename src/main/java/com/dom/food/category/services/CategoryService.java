@@ -1,20 +1,20 @@
 package com.dom.food.category.services;
 
-// import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.dom.food.category.mapper.CategoryMapper;
 import com.dom.food.category.models.CategoryModel;
 
-import lombok.RequiredArgsConstructor;
+// import lombok.RequiredArgsConstructor;
 
 @Service
-@RequiredArgsConstructor
+// @RequiredArgsConstructor
 public class CategoryService {
 
-    // @Autowired
-    private final CategoryMapper categoryMapper;
+    @Autowired
+    CategoryMapper categoryMapper;
 
     public static final String deleteCategory = null;
 

@@ -25,7 +25,7 @@ public class UserService implements UserDetailsService {
     BCryptPassword bcrypt = new BCryptPassword();
 
     public ResponseEntity<?> createUser(UserModel userModel) {
-
+        System.out.println("////////" + userModel);
         if (this.isExistByPhoneNumber(userModel)) {
             return ResponseEntity.badRequest().body("phone number already taken");
         }
@@ -75,7 +75,7 @@ public class UserService implements UserDetailsService {
         }
 
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new SimpleGrantedAuthority(user.getRole()));
+        authorities.add(new SimpleGrantedAuthority(user.getRole().toString()));
 
         return new org.springframework.security.core.userdetails.User(user.getEmail(),
                 user.getPassword(), authorities);

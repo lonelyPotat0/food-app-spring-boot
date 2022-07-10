@@ -76,25 +76,6 @@ CREATE TABLE IF NOT EXISTS `tbl_order_detail` (
     PRIMARY KEY (`order _detail_id`)
 );
 
-CREATE TABLE IF NOT EXISTS `tbl_customer_review` (
-    `review_id` INT NOT NULL AUTO_INCREMENT,
-    `rating` INT,
-    `comment` VARCHAR(255),
-    `menu_id` INT,
-    `customer_id` INT,
-    `create_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `update_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`review_id`)
-);
-
-CREATE TABLE IF NOT EXISTS `tbl_role` (
-    `role_id` INT,
-    `role_name` VARCHAR(15),
-    `role_decription` VARCHAR(20),
-    `create_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `update_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-);
-
 CREATE TABLE IF NOT EXISTS `tbl_cart` (
 	`cart_id` INT NOT NULL AUTO_INCREMENT,
 	`user_id` INT NOT NULL,
@@ -111,4 +92,23 @@ CREATE TABLE IF NOT EXISTS `tbl_cart_item` (
     `create_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `update_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`cart_item_id`)
+);
+
+CREATE TABLE IF NOT EXISTS `tbl_customer_review` (
+    `review_id` INT NOT NULL AUTO_INCREMENT,
+    `rating` INT NOT NULL,
+    `comment` VARCHAR(255),
+    `menu_id` INT NOT NULL,
+    `customer_id` INT NOT NULL,
+    `create_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `update_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (`review_id`)
+);
+
+CREATE TABLE IF NOT EXISTS `tbl_role` (
+    `role_id` INT,
+    `role_name` VARCHAR(15),
+    `role_decription` VARCHAR(20),
+    `create_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    `update_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );

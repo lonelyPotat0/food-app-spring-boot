@@ -6,13 +6,8 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-// import java.util.List;
-// import javax.persistence.Entity;
-// import javax.persistence.GeneratedValue;
-// import javax.persistence.GenerationType;
-// import javax.persistence.Id;
 
-@Entity
+// @Entity
 @Data
 public class UserModel {
 
@@ -35,27 +30,24 @@ public class UserModel {
     // @ManyToOne(fetch = FetchType.LAZY)
     // @JoinColumn(name = "role_id")
     // private RoleModel role;
-    private String role;
-
-    // private boolean isAvailable;
+    private ERole role;
     private String createAt;
     private String updateAt;
 
-    public String getPassword() {
-        return this.password;
+    public Integer getUserId() {
+        return this.userId;
     }
 
-    public UserModel setPassword(String password) {
-        this.password = password;
-        return this;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public String getRole() {
-        return this.role;
+    public String getFullname() {
+        return this.fullname;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setFullname(String fullname) {
+        this.fullname = fullname;
     }
 
     public String getEmail() {
@@ -64,6 +56,60 @@ public class UserModel {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return this.phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public ERole getRole() {
+        return this.role;
+    }
+
+    public void setRole(ERole role) {
+        this.role = role;
+    }
+
+    public String getCreateAt() {
+        return this.createAt;
+    }
+
+    public void setCreateAt(String createAt) {
+        this.createAt = createAt;
+    }
+
+    public String getUpdateAt() {
+        return this.updateAt;
+    }
+
+    public void setUpdateAt(String updateAt) {
+        this.updateAt = updateAt;
+    }
+
+    @Override
+    public String toString() {
+        return "{" +
+                " userId='" + getUserId() + "'" +
+                ", fullname='" + getFullname() + "'" +
+                ", email='" + getEmail() + "'" +
+                ", phone='" + getPhone() + "'" +
+                ", password='" + getPassword() + "'" +
+                ", role='" + getRole() + "'" +
+                ", createAt='" + getCreateAt() + "'" +
+                ", updateAt='" + getUpdateAt() + "'" +
+                "}";
     }
 
 }
