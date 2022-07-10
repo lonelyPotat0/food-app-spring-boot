@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dom.food.user.mapper.UserMapper">
+
+    <insert id="createUser" parameterType="hashmap">
+        INSERT into `tbl_user` (
+                fullname,
+                phone,
+                password,
+                email,
+                role
+        )
+        VALUES (
+                #{fullname},
+                #{phone},
+                #{password},
+                #{email},
+                #{role}
+        )
+    </insert>
+
+    <!-- <resultMap id = "insertResult"  type="User">
+        <result property = "userId" column = "user_id"/>
+        <result property = "fullname" column = "fullname"/>
+        <result property = "phone" column = "phone"/>
+        <result property = "role" column = "role"/>
+     </resultMap> -->
+
+    <select id="existsByPhone" parameterType="hashmap" resultType="boolean">
+        select COUNT(*) as total from `tbl_user` where `phone` = "${phone}"
+        <if test="userId != null">
+            AND id != #{userId}
+        </if>
+    </select>
+
+    <select id="findByEmail" parameterType="String" resultType="com.dom.food.user.models.UserModel">
+        select
+            email,
+            password,
+            role
+        from `tbl_user` where `email` = "${email}"
+    </select>
+
+    <select id="existsByEmail" parameterType="String" resultType="boolean">
+        select COUNT(*) as total from `tbl_user` where `email` = "${email}"
+    </select>
+
+    <select id="getUser" parameterType="int" resultType="map">
+        SELECT 
+                fullname,
+                phone,
+                role 
+        from `tbl_user`
+        <if test="id">
+                where user_id = #{id}
+        </if>
+    </select>
+
+    <update id="updateUser" parameterType="hashmap">
+        UPDATE `tbl_user`
+         <set>
+             <if test="fullname != null">fullname = #{fullname},</if>
+             <if test="phone != null">phone = #{phone}</if>
+             <!-- <if test="password != null">fullname = #{password}</if> -->
+         </set>
+                WHERE user_id = #{userId}
+    </update>
+
+    <update id="updateRole" parameterType="hashmap">
+        UPDATE `tbl_user`
+         <set>
+             <if test="role != null">role = #{role}</if>
+         </set>
+                WHERE user_id = #{userId}
+    </update>
+
+    <delete id="deleteUser" parameterType="hashmap">
+        DELETE from `tbl_user` where user_id = #{id}
+    </delete>
+
+     
+
+    <!-- <select id="getAll" resultType="map">
+        SELECT
+         pro.id , pro.name , prob.`name` as brand , pro.image , cate.`name` as category,
+         prod.cpu_clock as cpuClock, prod.cpu_clock_max as cpuClockMax, prod.ram_clock as ramClock, prod.gpu_clock as gpuClock ,
+         prod.storage1_capacity as strage1Capacity , prod.storage2_capacity as storage2Capacity , prod.read_speed as readSpeed, prod.write_speed as writeSpeed,
+         prod.power , prod.description1 ,prod.description2 , prod.price , prod.discount
+
+         from (((product as pro
+         INNER JOIN product_description as prod ON pro.id = prod.product_id)
+         INNER JOIN product_brand as prob ON pro.brand = prob.id)
+         INNER JOIN category as cate ON cate.id = pro.category)
+        <if test="search != null">
+            where pro.name like "%${search}%"
+        </if>
+         <if test="type != 0">
+             and pro.type = #{type}
+         </if>
+         <if test="category != 0">
+             and pro.category = #{category}
+         </if>
+        <if test="perPage > 0 and page > 0">
+            LIMIT #{offset}, #{perPage}
+        </if>
+    </select> -->
+
+    <!-- <select id="getOne" resultType="map" parameterType="int">
+        select pro.id , pro.name , prob.`name` as brand , pro.image , cate.`name` as category,
+               prod.cpu_clock as cpuClock, prod.cpu_clock_max as cpuClockMax, prod.ram_clock as ramClock, prod.gpu_clock as gpuClock ,
+               prod.storage1_capacity as strage1Capacity , prod.storage2_capacity as storage2Capacity , prod.read_speed as readSpeed, prod.write_speed as writeSpeed,
+               prod.power , prod.description1 ,prod.description2 , prod.price , prod.discount
+
+        from (((product as pro
+            INNER JOIN product_description as prod ON pro.id = prod.product_id)
+            INNER JOIN product_brand as prob ON pro.brand = prob.id)
+                 INNER JOIN category as cate ON cate.id = pro.category)
+        where pro.id = #{id}
+    </select>
+
+    <select id="countProduct" resultType="int">
+        SELECT count(pro.id)
+        from (((product as pro
+        INNER JOIN product_description as prod ON pro.id = prod.product_id)
+        INNER JOIN product_brand as prob ON pro.brand = prob.id)
+        INNER JOIN category as cate ON cate.id = pro.category)
+        <if test="search != null">
+            where pro.name like "%${search}%"
+        </if>
+        <if test="type != 0">
+            and pro.type = #{type}
+        </if>
+        <if test="category != 0">
+            and pro.category = #{category}
+        </if>
+    </select>
+
+    
+
+    <update id="updateProductDescription" parameterType="hashmap">
+        update `product_description`
+        <set>
+            <if test="cpuClock != null">`cpu_clock`=#{cpuClock},</if>
+            <if test="cpuClockMax != null">`cpu_clock_max`=#{cpuClockMax},</if>
+            <if test="ramClock != null">`ram_clock`=#{ramClock},</if>
+            <if test="gpuClock != null">`gpu_clock`=#{gpuClock},</if>
+            <if test="cpuName != null">`cpu_name`=#{cpuName},</if>
+            <if test="ramCapacity != null">`ram_capacity`=#{ramCapacity},</if>
+            <if test="gpuCapacity != null">`gpu_capacity`=#{},</if>
+            <if test="storage1Capacity != null">`storage1_capacity`=#{storage1Capacity},</if>
+            <if test="storage2Capacity != null">`storage2_capacity`=#{storage2Capacity},</if>
+            <if test="readSpeed != null">`read_speed`=#readSpeed},</if>
+            <if test="writeSpeed != null">`write_speed`=#{writeSpeed},</if>
+            <if test="power != null">`power`=#{power},</if>
+            <if test="description1 != null">`description1`=#{description1},</if>
+            <if test="description2 != null">`description2`=#{description2},</if>
+            <if test="price != null">`price`=#{price},</if>
+            <if test="discount != null">`discount`=#{discount},</if>
+            modify_user_id = #{modifyUserId}
+        </set>
+        where product_id = #{productId}
+    </update> -->
+
+    <!-- <update id="updateById" parameterType="product">
+        UPDATE `product`
+        <set>
+            <if test="name != null">`name`=#{name},</if>
+            <if test="category != null">`category`=#{category},</if>
+            <if test="type != null">`type`=#{type},</if>
+            <if test="brand != null">`brand`=#{brand},</if>
+            <if test="image != null">`image`=#{image},</if>
+            <if test="quantity != null">`quantity`=#{quantity},</if>
+        </set>
+        WHERE id = #{id}
+    </update> -->
+</mapper>
