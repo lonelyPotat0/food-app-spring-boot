@@ -15,7 +15,7 @@ public interface ReviewMapper {
 
     List<ReviewModel> getAllMenuReview(Integer menuId);
 
-    boolean deleteReview(Integer reviewId);
+    boolean deleteReview(ReviewModel review);
 
     boolean updateReview(ReviewModel review);
 }

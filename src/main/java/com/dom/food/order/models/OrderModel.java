@@ -5,24 +5,24 @@ import javax.validation.constraints.Size;
 
 public class OrderModel {
 
-    private Integer ordeId;
+    private Integer orderId;
     @Size(min = 1)
     private Integer customerId;
     @NotBlank(message = "address must not be blank")
-    private String deleiveryAddress;
+    private String deliveryAddress;
     // @Size(min = 1)
     private float grandTotal;
-    @Size(min = 1)
+    // @Size(min = 1)
     private Integer processedBy;
     private String createAt;
     private String updateAt;
 
-    public Integer getOrdeId() {
-        return this.ordeId;
+    public Integer getOrderId() {
+        return this.orderId;
     }
 
-    public void setOrdeId(Integer ordeId) {
-        this.ordeId = ordeId;
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
     public Integer getCustomerId() {
@@ -31,14 +31,6 @@ public class OrderModel {
 
     public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
-    }
-
-    public String getDeleiveryAddress() {
-        return this.deleiveryAddress;
-    }
-
-    public void setDeleiveryAddress(String deleiveryAddress) {
-        this.deleiveryAddress = deleiveryAddress;
     }
 
     public float getGrandTotal() {
@@ -73,12 +65,20 @@ public class OrderModel {
         this.updateAt = updateAt;
     };
 
+    public String getDeliveryAddress() {
+        return this.deliveryAddress;
+    }
+
+    public void setDeliveryAddress(String deliveryAddress) {
+        this.deliveryAddress = deliveryAddress;
+    }
+
     @Override
     public String toString() {
         return "{" +
-                " ordeId='" + getOrdeId() + "'" +
+                " orderId='" + getOrderId() + "'" +
                 ", customerId='" + getCustomerId() + "'" +
-                ", deleiveryAddress='" + getDeleiveryAddress() + "'" +
+                ", deliveryAddress='" + getDeliveryAddress() + "'" +
                 ", grandTotal='" + getGrandTotal() + "'" +
                 ", processedBy='" + getProcessedBy() + "'" +
                 ", createAt='" + getCreateAt() + "'" +

@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS `tbl_user` (
     `user_id` INT NOT NULL AUTO_INCREMENT,
     `fullname` VARCHAR(50) NOT NULL,
     `phone` VARCHAR(11) NOT NULL,
+    `address` VARCHAR(255) NOT NULL,
     `password` VARCHAR(255) NOT NULL,
     `role` VARCHAR(25) NOT NULL,
     `email` VARCHAR(100) NOT NULL,
@@ -57,32 +58,34 @@ CREATE TABLE IF NOT EXISTS `tbl_payment` (
     `paymeny_id` INT NOT NULL AUTO_INCREMENT,
     `amount` INT NOT NULL,
     `paid_by` INT NOT NULL,
-    `isPaid` BOOLEAN DEFAULT false,
     `procesed_by` INT NOT NULL,
+    `order_id` INT NOT NULL,
     `create_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `update_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`paymeny_id`)
 );
 
 CREATE TABLE IF NOT EXISTS `tbl_order_detail` (
-    `order _detail_id` INT NOT NULL AUTO_INCREMENT,
+    `order_detail_id` INT NOT NULL AUTO_INCREMENT,
     `order_id` INT NOT NULL,
     `menu_id` INT NOT NULL,
     `number_served` INT NOT NULL,
     `amount` FLOAT NOT NULL,
     `total_amount` FLOAT NOT NULL,
+    `delivered` BOOLEAN DEFAULT false,
+    `customer_id` INT NOT NULL,
     `create_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `update_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`order _detail_id`)
 );
 
-CREATE TABLE IF NOT EXISTS `tbl_cart` (
-	`cart_id` INT NOT NULL AUTO_INCREMENT,
-	`user_id` INT NOT NULL,
-    `create_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    `update_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-	PRIMARY KEY (`cart_id`)
-);
+-- CREATE TABLE IF NOT EXISTS `tbl_cart` (
+-- 	`cart_id` INT NOT NULL AUTO_INCREMENT,
+-- 	`user_id` INT NOT NULL,
+--     `create_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+--     `update_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+-- 	PRIMARY KEY (`cart_id`)
+-- );
 
 CREATE TABLE IF NOT EXISTS `tbl_cart_item` (
     `cart_item_id` INT NOT NULL AUTO_INCREMENT,

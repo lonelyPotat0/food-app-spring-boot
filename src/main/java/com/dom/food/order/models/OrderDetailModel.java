@@ -12,6 +12,20 @@ public class OrderDetailModel {
     private Integer numberServed;
     private float amount;
     private float totalAmount;
+    private boolean delivered;
+    private Integer customerId;
+
+    public OrderDetailModel() {
+    }
+
+    public OrderDetailModel(Integer orderId, Integer menuId, Integer numberServed, float amount, Integer customerId) {
+        this.orderId = orderId;
+        this.menuId = menuId;
+        this.numberServed = numberServed;
+        this.amount = amount;
+        this.totalAmount = amount * numberServed;
+        this.customerId = customerId;
+    }
 
     public Integer getOrderDetailId() {
         return this.orderDetailId;
@@ -61,15 +75,38 @@ public class OrderDetailModel {
         this.totalAmount = totalAmount;
     }
 
+    public boolean isDelivered() {
+        return this.delivered;
+    }
+
+    public boolean getDelivered() {
+        return this.delivered;
+    }
+
+    public void setDelivered(boolean delivered) {
+        this.delivered = delivered;
+    }
+
+    public Integer getCustomerId() {
+        return this.customerId;
+    }
+
+    public void setCustomerId(Integer customerId) {
+        this.customerId = customerId;
+    }
+
     @Override
     public String toString() {
         return "{" +
-                " orderDetailId='" + orderDetailId + "'" +
-                ", orderId='" + orderId + "'" +
-                ", menuId='" + menuId + "'" +
-                ", numberServed='" + numberServed + "'" +
-                ", amount='" + amount + "'" +
-                ", totalAmount='" + totalAmount + "'" +
+                " orderDetailId='" + getOrderDetailId() + "'" +
+                ", orderId='" + getOrderId() + "'" +
+                ", menuId='" + getMenuId() + "'" +
+                ", numberServed='" + getNumberServed() + "'" +
+                ", amount='" + getAmount() + "'" +
+                ", totalAmount='" + getTotalAmount() + "'" +
+                ", delivered='" + isDelivered() + "'" +
+                ", customerId='" + getCustomerId() + "'" +
                 "}";
     }
+
 }

@@ -40,8 +40,8 @@
     </update>
 
 
-    <delete id="deleteReview" parameterType="int">
-        DELETE from `tbl_customer_review` where review_id = #{reviewId}
+    <delete id="deleteReview" parameterType="hashmap">
+        DELETE from `tbl_customer_review` where review_id = #{reviewId} and customer_id = #{customerId}
     </delete>
 
 </mapper>

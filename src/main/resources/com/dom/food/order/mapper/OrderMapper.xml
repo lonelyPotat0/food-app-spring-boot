@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dom.food.order.mapper.OrderMapper">
 
-    <insert id="addToCart" parameterType="hashmap" > 
+    <insert id="addToCart" parameterType="hashmap">
         <!-- useGeneratedKeys="true" keyColumn="cart_id" keyProperty="cartId"> -->
         INSERT into `tbl_cart_item` (
                 user_id,
@@ -16,6 +16,13 @@
         )
     </insert>
 
+    <select id="checkCartItemExists" parameterType="hashmap" resultType="com.dom.food.order.models.CartItemModel"> 
+        select 
+            cart_item_id as cartItemId,
+            quantity
+        from `tbl_cart_item`
+        where menu_id = #{menuId} and user_id = #{userId}
+    </select>
 
     <select id="getCartItems" parameterType="int" resultType="com.dom.food.order.models.CartItemModel">
         select 
@@ -37,46 +44,6 @@
         where cart.user_id = #{userId}
     </select>
 
-    <insert id="createShop" parameterType="hashmap">
-        INSERT into `tbl_shop` (
-                name,
-                address,
-                phone,
-                user_id
-        )
-        VALUES (
-                #{name},
-                #{address},
-                #{phone},
-                #{userId}
-        )
-    </insert>
-
-    <select id="getAllShop" resultType="map">
-        SELECT 
-                shop_id as shopId,
-                address,
-                phone,
-                user_id as userId,
-                name,
-                update_at as updateAt,
-                create_at as createAt
-        from `tbl_shop`
-    </select>
-
-    <select id="getShop" parameterType="int" resultType="map">
-        SELECT 
-                shop_id as shopId,
-                address,
-                phone,
-                user_id as userId,
-                name,
-                update_at as updateAt,
-                create_at as createAt
-        from `tbl_shop`
-                where shop_id = #{id}
-    </select>
-
     <update id="updateCart" parameterType="hashmap">
         UPDATE `tbl_cart_item`
         <set>
@@ -88,6 +55,69 @@
 
     <delete id="removeFromCart" parameterType="hashmap">
         DELETE from `tbl_cart_item` where cart_item_id = #{cartItemId} and user_id = #{userId}
+    </delete>
+
+
+
+    <insert id="createOrder" parameterType="hashmap" useGeneratedKeys="true" keyColumn="order_id" keyProperty="orderId"> 
+        INSERT into `tbl_order` (
+            customer_id,
+            delivery_address,
+            grand_total,
+            processed_by 
+        )
+        VALUES (
+                #{customerId},
+                #{deliveryAddress},
+                #{grandTotal},
+                #{customerId}
+        )
+    </insert>
+
+    <!-- index="index" open="(" separator="),("  close=")" -->
+    <insert id="createOrderDetail" parameterType="java.util.List"> 
+        INSERT into `tbl_order_detail` (
+            order_id,
+            menu_id,
+            number_served,
+            amount,
+            total_amount,
+            customer_id
+        )
+        VALUES (
+
+            <foreach collection="list" item="orders" separator="),("> 
+                #{orders.orderId},
+                #{orders.menuId},
+                #{orders.numberServed},
+                #{orders.amount},
+                #{orders.totalAmount},
+                #{orders.customerId}
+            </foreach>
+        )
+    </insert>
+
+    <insert id="createPayment" parameterType="hashmap"> 
+        INSERT into `tbl_payment` (
+            amount,
+            paid_by,
+            procesed_by,
+            order_id
+        )
+        VALUES (
+                #{amount},
+                #{paidBy},
+                #{procesedBy},
+                #{orderId}
+        )
+    </insert>
+
+    <delete id="clearCart" parameterType="int">
+        DELETE from `tbl_cart_item` where user_id = #{userId}
+    </delete>
+
+    <delete id="deleteOrder" parameterType="int">
+        DELETE from `tbl_order` where order_id = #{orderId}
     </delete>
 
 </mapper>

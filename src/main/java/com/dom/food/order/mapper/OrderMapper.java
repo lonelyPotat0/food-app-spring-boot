@@ -5,13 +5,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.dom.food.order.models.CartItemModel;
-// import com.dom.food.order.models.CartModel;
 import com.dom.food.order.models.OrderDetailModel;
 import com.dom.food.order.models.OrderModel;
-import com.dom.food.order.models.PaymentModel;
 
 @Mapper
 public interface OrderMapper {
+
+    CartItemModel checkCartItemExists(CartItemModel cartItem);
 
     boolean addToCart(CartItemModel cartItem);
 
@@ -21,10 +21,12 @@ public interface OrderMapper {
 
     boolean removeFromCart(CartItemModel cartItem);
 
-    boolean createOrder(OrderModel order);
+    Integer createOrder(OrderModel order);
 
-    boolean createOrderDetail(OrderDetailModel orderDetail);
+    boolean createOrderDetail(List<OrderDetailModel> orders);
 
-    boolean createPayment(PaymentModel payment);
+    boolean clearCart(Integer userId);
+
+    boolean deleteOrder(Integer orderId);
 
 }

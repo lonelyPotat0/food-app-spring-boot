@@ -38,9 +38,9 @@ public class ReviewController {
         return this.reviewService.getAllMenuReview(Integer.parseInt(menuId));
     }
 
-    @DeleteMapping("/{reviewId}")
-    public ResponseEntity<?> deleteReview(@PathVariable("reviewId") String reviewId) {
-        return this.reviewService.deleteReview(Integer.parseInt(reviewId));
+    @DeleteMapping()
+    public ResponseEntity<?> deleteReview(@RequestBody ReviewModel reviewModel) {
+        return this.reviewService.deleteReview(reviewModel);
     }
 
     @PutMapping()

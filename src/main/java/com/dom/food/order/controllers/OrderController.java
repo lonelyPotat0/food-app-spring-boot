@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.apache.http.client.HttpResponseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.dom.food.order.models.CartItemModel;
-// import com.dom.food.order.models.CartModel;
+import com.dom.food.order.models.OrderModel;
 import com.dom.food.order.services.OrderService;
 
 @RestController
@@ -44,6 +45,11 @@ public class OrderController {
     @DeleteMapping("/cart")
     public ResponseEntity<?> removeFromCart(@RequestBody CartItemModel cart) {
         return this.orderService.removeFromCart(cart);
+    }
+
+    @PostMapping("/checkout")
+    public ResponseEntity<?> checkOut(@Valid @RequestBody OrderModel order) throws HttpResponseException {
+        return this.orderService.checkOutCart(order);
     }
 
 }

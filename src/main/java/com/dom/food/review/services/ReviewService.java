@@ -24,8 +24,8 @@ public class ReviewService {
         return this.reviewMapper.getAllMenuReview(menuId);
     }
 
-    public ResponseEntity<?> deleteReview(Integer reviewId) {
-        return this.reviewMapper.deleteReview(reviewId) ? ResponseEntity.ok().body("deleted")
+    public ResponseEntity<?> deleteReview(ReviewModel reviewModel) {
+        return this.reviewMapper.deleteReview(reviewModel) ? ResponseEntity.ok().body("deleted")
                 : ResponseEntity.badRequest().body("failed");
     }
 

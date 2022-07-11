@@ -27,10 +27,8 @@ public class UserModel {
 
     @NotEmpty(message = "role|not empty")
     @Size(min = 1, max = 3)
-    // @ManyToOne(fetch = FetchType.LAZY)
-    // @JoinColumn(name = "role_id")
-    // private RoleModel role;
     private ERole role;
+    private String address;
     private String createAt;
     private String updateAt;
 
@@ -98,6 +96,14 @@ public class UserModel {
         this.updateAt = updateAt;
     }
 
+    public String getAddress() {
+        return this.address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     @Override
     public String toString() {
         return "{" +
@@ -107,6 +113,7 @@ public class UserModel {
                 ", phone='" + getPhone() + "'" +
                 ", password='" + getPassword() + "'" +
                 ", role='" + getRole() + "'" +
+                ", address='" + getAddress() + "'" +
                 ", createAt='" + getCreateAt() + "'" +
                 ", updateAt='" + getUpdateAt() + "'" +
                 "}";
