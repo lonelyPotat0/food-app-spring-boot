@@ -8,6 +8,9 @@ import com.dom.food.order.models.PaymentModel;
 
 @Mapper
 public interface OrderMapper {
+
+    boolean addToCart(OrderDetailModel orderDetail);
+
     boolean createOrder(OrderModel order);
 
     boolean createOrderDetail(OrderDetailModel orderDetail);

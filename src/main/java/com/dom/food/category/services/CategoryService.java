@@ -1,6 +1,9 @@
 package com.dom.food.category.services;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -24,29 +27,32 @@ public class CategoryService {
         if (this.existByName(categoryModel)) {
             return ResponseEntity.badRequest().body("category already exist");
         }
-        return this.categoryMapper.createCategory(categoryModel) ? ResponseEntity.ok().body("created")
-                : ResponseEntity.badRequest().body("failed");
+        return this.categoryMapper.createCategory(categoryModel)
+                ? new ResponseEntity<String>("created", HttpStatus.CREATED)
+                : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
     }
 
     public ResponseEntity<?> getCategory(Integer id) {
         return ResponseEntity.ok().body(this.categoryMapper.getCategory(id));
     }
 
-    public ResponseEntity<?> getAllCategory() {
-        return ResponseEntity.ok().body(this.categoryMapper.getAllCategory());
+    public List<Object> getAllCategory() {
+        return this.categoryMapper.getAllCategory();
     }
 
     public ResponseEntity<?> updateCategory(CategoryModel categoryModel) {
         if (this.existByName(categoryModel)) {
             return ResponseEntity.badRequest().body("category already exist");
         }
-        return this.categoryMapper.updateCategory(categoryModel) ? ResponseEntity.ok().body("updated")
-                : ResponseEntity.badRequest().body("failed");
+        return this.categoryMapper.updateCategory(categoryModel)
+                ? new ResponseEntity<String>("updated", HttpStatus.CREATED)
+                : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
     }
 
     public ResponseEntity<?> deleteCategory(Integer id) {
-        return this.categoryMapper.deleteCategory(id) ? ResponseEntity.ok().body("deleted")
-                : ResponseEntity.badRequest().body("failed");
+        return this.categoryMapper.deleteCategory(id)
+                ? new ResponseEntity<String>("deleted", HttpStatus.CREATED)
+                : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
     }
 
     private boolean existByName(CategoryModel categoryModel) {

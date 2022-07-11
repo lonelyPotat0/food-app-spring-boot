@@ -2,6 +2,8 @@ package com.dom.food.category.controllers;
 
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -35,7 +37,7 @@ public class CategoryController {
     }
 
     @GetMapping()
-    public ResponseEntity<?> getAllCategory() {
+    public List<Object> getAllCategory() {
         return this.categoryrService.getAllCategory();
     }
 
