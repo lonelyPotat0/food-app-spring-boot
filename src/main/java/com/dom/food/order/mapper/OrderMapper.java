@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.dom.food.order.models.CartItemModel;
 import com.dom.food.order.models.OrderDetailModel;
 import com.dom.food.order.models.OrderModel;
+import com.dom.food.order.models.PaymentModel;
 
 @Mapper
 public interface OrderMapper {
@@ -29,4 +30,9 @@ public interface OrderMapper {
 
     boolean deleteOrder(Integer orderId);
 
+    List<Object> getOrderList(Integer shopId);
+
+    boolean createPayment(PaymentModel payment);
+
+    boolean confirmDelivered(Integer orderId);
 }

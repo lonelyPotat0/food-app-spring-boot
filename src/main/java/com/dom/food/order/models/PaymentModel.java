@@ -12,6 +12,19 @@ public class PaymentModel {
     private String createAt;
     private String updateAt;
     private boolean isPaid;
+    private Integer orderId;
+
+    public boolean isIsPaid() {
+        return this.isPaid;
+    }
+
+    public Integer getOrderId() {
+        return this.orderId;
+    }
+
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
+    }
 
     public boolean getIsPaid() {
         return this.isPaid;

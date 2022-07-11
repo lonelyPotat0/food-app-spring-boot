@@ -14,17 +14,46 @@ public class OrderDetailModel {
     private float totalAmount;
     private boolean delivered;
     private Integer customerId;
+    private Integer shopId;
+    private String createAt;
+    private String updateAt;
 
     public OrderDetailModel() {
     }
 
-    public OrderDetailModel(Integer orderId, Integer menuId, Integer numberServed, float amount, Integer customerId) {
+    public OrderDetailModel(Integer orderId, Integer menuId, Integer numberServed, float amount, Integer customerId,
+            Integer shopId) {
         this.orderId = orderId;
         this.menuId = menuId;
         this.numberServed = numberServed;
         this.amount = amount;
         this.totalAmount = amount * numberServed;
         this.customerId = customerId;
+        this.shopId = shopId;
+    }
+
+    public Integer getShopId() {
+        return this.shopId;
+    }
+
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
+    }
+
+    public String getCreateAt() {
+        return this.createAt;
+    }
+
+    public void setCreateAt(String createAt) {
+        this.createAt = createAt;
+    }
+
+    public String getUpdateAt() {
+        return this.updateAt;
+    }
+
+    public void setUpdateAt(String updateAt) {
+        this.updateAt = updateAt;
     }
 
     public Integer getOrderDetailId() {
@@ -106,6 +135,9 @@ public class OrderDetailModel {
                 ", totalAmount='" + getTotalAmount() + "'" +
                 ", delivered='" + isDelivered() + "'" +
                 ", customerId='" + getCustomerId() + "'" +
+                ", shopId='" + getShopId() + "'" +
+                ", createAt='" + getCreateAt() + "'" +
+                ", updateAt='" + getUpdateAt() + "'" +
                 "}";
     }
 

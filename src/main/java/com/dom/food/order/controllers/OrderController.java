@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dom.food.order.models.CartItemModel;
 import com.dom.food.order.models.OrderModel;
+import com.dom.food.order.models.PaymentModel;
 import com.dom.food.order.services.OrderService;
 
 @RestController
@@ -50,6 +51,21 @@ public class OrderController {
     @PostMapping("/checkout")
     public ResponseEntity<?> checkOut(@Valid @RequestBody OrderModel order) throws HttpResponseException {
         return this.orderService.checkOutCart(order);
+    }
+
+    @GetMapping("/{shopId}")
+    public List<Object> getOrderList(@PathVariable("shopId") String shopId) {
+        return this.orderService.getOrderList(Integer.parseInt(shopId));
+    }
+
+    @PostMapping("/confirm-payment")
+    public ResponseEntity<?> removeFromCart(@Valid @RequestBody PaymentModel payment) {
+        return this.orderService.confirmPayment(payment);
+    }
+
+    @PostMapping("/confirm-delivered/{orderId}")
+    public ResponseEntity<?> confirmDelivered(@PathVariable("orderId") String orderId) {
+        return this.orderService.confirmDelivered(Integer.parseInt(orderId));
     }
 
 }

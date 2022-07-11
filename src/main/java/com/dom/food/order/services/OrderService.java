@@ -13,6 +13,7 @@ import com.dom.food.order.mapper.OrderMapper;
 import com.dom.food.order.models.CartItemModel;
 import com.dom.food.order.models.OrderDetailModel;
 import com.dom.food.order.models.OrderModel;
+import com.dom.food.order.models.PaymentModel;
 
 @Service
 public class OrderService {
@@ -58,44 +59,56 @@ public class OrderService {
                 : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
     }
 
-    public List<Object> listOrder(Integer shopId) {
-        return null;
+    public List<Object> getOrderList(Integer shopId) {
+        return this.orderMapper.getOrderList(shopId);
     }
 
-    public ResponseEntity<?> confirmPayment() {
-        return null;
+    public ResponseEntity<?> confirmPayment(PaymentModel payment) {
+        return this.orderMapper.createPayment(payment)
+                ? new ResponseEntity<String>("created", HttpStatus.CREATED)
+                : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
     }
 
-    public ResponseEntity<?> confirmDelivered() {
-        return null;
+    public ResponseEntity<?> confirmDelivered(Integer orderId) {
+        return this.orderMapper.confirmDelivered(orderId)
+                ? new ResponseEntity<String>("confirmed", HttpStatus.OK)
+                : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
     }
 
-    private boolean createOrder(OrderModel cart) throws HttpResponseException {
-        List<CartItemModel> cartItems = this.getCartItems(cart.getCustomerId());
-        for (CartItemModel item : cartItems) {
-            cart.setGrandTotal(cart.getGrandTotal() + item.getPrice() * item.getQuantity());
+    private boolean createOrder(OrderModel order) throws HttpResponseException {
+        List<CartItemModel> cartItems = this.getCartItems(order.getCustomerId());
+        // System.out.println("===================?" + cartItems.size());
+        if (cartItems.size() == 0) {
+            throw new HttpResponseException(400, " no item in cart");
         }
-        if (this.orderMapper.createOrder(cart) > 0) {
-            return this.createOrderDetail(cart, cartItems) ? true : false;
+        for (CartItemModel item : cartItems) {
+            order.setGrandTotal(order.getGrandTotal() + item.getPrice() * item.getQuantity());
+        }
+        if (this.orderMapper.createOrder(order) > 0) {
+            return this.createOrderDetail(order, cartItems) ? true : false;
         }
         return false;
     }
 
-    private boolean createOrderDetail(OrderModel cart, List<CartItemModel> cartItems) throws HttpResponseException {
+    private boolean createOrderDetail(OrderModel order, List<CartItemModel> cartItems) throws HttpResponseException {
         List<OrderDetailModel> orderDetail = new ArrayList<OrderDetailModel>();
         Integer index = 0;
         for (CartItemModel item : cartItems) {
-            orderDetail.add(new OrderDetailModel(cart.getOrderId(), item.getMenuId(), item.getQuantity(),
-                    item.getPrice(), item.getUserId()));
+            orderDetail.add(new OrderDetailModel(order.getOrderId(), item.getMenuId(), item.getQuantity(),
+                    item.getPrice(), item.getUserId(), item.getShopId()));
             index++;
         }
+        System.out.println("===================?" + orderDetail);
         if (this.orderMapper.createOrderDetail(orderDetail)) {
-            return this.orderMapper.clearCart(cart.getCustomerId());
-        } else {
-            // roll back
-            this.orderMapper.deleteOrder(cart.getOrderId());
-            throw new HttpResponseException(400, " error checking out cart");
+            try {
+                return this.orderMapper.clearCart(order.getCustomerId());
+            } catch (Exception err) {
+                // roll back
+                this.orderMapper.deleteOrder(order.getOrderId());
+                throw new HttpResponseException(400, " error checking out cart");
+            }
         }
+        return false;
 
     }
 

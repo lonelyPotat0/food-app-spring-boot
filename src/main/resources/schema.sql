@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `tbl_payment` (
     `paymeny_id` INT NOT NULL AUTO_INCREMENT,
     `amount` INT NOT NULL,
     `paid_by` INT NOT NULL,
-    `procesed_by` INT NOT NULL,
+    `processed_by` INT NOT NULL,
     `order_id` INT NOT NULL,
     `create_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `update_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -74,9 +74,10 @@ CREATE TABLE IF NOT EXISTS `tbl_order_detail` (
     `total_amount` FLOAT NOT NULL,
     `delivered` BOOLEAN DEFAULT false,
     `customer_id` INT NOT NULL,
+    `shop_id` INT NOT NULL,
     `create_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `update_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (`order _detail_id`)
+    PRIMARY KEY (`order_detail_id`)
 );
 
 -- CREATE TABLE IF NOT EXISTS `tbl_cart` (
