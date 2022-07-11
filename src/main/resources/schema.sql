@@ -88,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `tbl_cart_item` (
     `cart_item_id` INT NOT NULL AUTO_INCREMENT,
 	`menu_id` INT NOT NULL,
 	`quantity` INT NOT NULL,
-	`cart_id` INT NOT NULL,
+    `user_id` INT NOT NULL,
     `create_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `update_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`cart_item_id`)
