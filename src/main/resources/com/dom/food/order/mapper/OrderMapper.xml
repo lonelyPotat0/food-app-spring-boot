@@ -123,28 +123,6 @@
     </delete>
 
     <select id="getOrderList" parameterType="int" resultType="map">
-        <!-- select 
-            o.order_id as orderId,
-            o.customer_id as customerId,
-            o.delivery_address as deliveryAddress,
-            o.grand_total as grandTotal,
-            u.fullname as customerName,
-            u.phone as customerPhone,
-            u.email as customerEmail,
-            od.menu_id as menuId,
-            od.number_served as quantity,
-            od.delivered,
-            m.name,
-            m.image,
-            o.create_at as createAt,
-            o.update_at as updateAt
-    
-        from `tbl_order_detail` as od
-        inner join tbl_order as o on od.order_id = o.order_id
-        inner join tbl_menu as m on od.menu_id = m.menu_id
-        inner join tbl_user as u on od.customer_id = u.user_id
-        where od.order_id = #{shopId}
-         -->
         select 
             o.order_id as orderId,
             o.customer_id as customerId,

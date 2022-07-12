@@ -48,7 +48,7 @@ public class OrderController {
         return this.orderService.removeFromCart(cart);
     }
 
-    @PostMapping("/checkout")
+    @PostMapping("/cart/checkout")
     public ResponseEntity<?> checkOut(@Valid @RequestBody OrderModel order) throws HttpResponseException {
         return this.orderService.checkOutCart(order);
     }

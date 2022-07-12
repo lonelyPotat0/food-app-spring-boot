@@ -47,7 +47,7 @@ VALUES
         '1',
         'admin',
         '0123456789',
-        'password',
+        '$2a$12$KGtd/KJZEUbmqytN0uvqweM7RyCHK37EupO4/dbyWFqJR8/Y4/OZ.',
         'ROLE_ADMIN',
         'admin',
         'HQ'

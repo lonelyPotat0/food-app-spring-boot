@@ -1,5 +1,7 @@
 package com.dom.food.shop.controllers;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -22,7 +24,7 @@ public class ShopController {
     ShopService shopService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createShop(@RequestBody ShopModel shop) {
+    public ResponseEntity<?> createShop(@Valid @RequestBody ShopModel shop) {
         return this.shopService.createShop(shop);
     }
 

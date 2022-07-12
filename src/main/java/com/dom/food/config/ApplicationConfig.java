@@ -2,23 +2,30 @@ package com.dom.food.config;
 
 import com.dom.food.filter.JwtAuthenticationFilter;
 import com.dom.food.filter.JwtAuthorizationFilter;
-import lombok.RequiredArgsConstructor;
+// import lombok.RequiredArgsConstructor;
 // import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 // @Slf4j
+// @Configuration
+// @RequiredArgsConstructor
 @Configuration
-@RequiredArgsConstructor
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class ApplicationConfig extends WebSecurityConfigurerAdapter {
 
     // private final UserDetailsService userDetailsService;
@@ -36,8 +43,6 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        // we define how spring look for the user authentication
-        // in this case we use user detail service
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 
@@ -45,24 +50,27 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManagerBean());
         jwtAuthenticationFilter.setFilterProcessesUrl("/api/login");
-        http.cors().and().csrf().disable();
-        // stateless mean no session will be created or used by spring security
-        // we used token in this case
-        // http.authorizeRequests().antMatchers("/api/v1/login/**",
-        // "/api/v1/register/**", "/api/v1/products/**").permitAll();
-        // http.authorizeRequests().antMatchers("/api/role/save").hasAuthority("ADMIN");
-        // http.authorizeRequests().antMatchers("/api/product/**").hasAnyAuthority("ADMIN",
-        // "SALOR");
-        // http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        // http.authorizeRequests().anyRequest().authenticated();
 
-        http.anonymous()
-                .and()
+        http.csrf().disable()
                 .authorizeRequests()
-                // .antMatchers("/api/**").authenticated()
-                .anyRequest().permitAll();
-
-        http.addFilter(jwtAuthenticationFilter);
-        http.addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+                .antMatchers("/api/login", "/user/create").permitAll()
+                .antMatchers("/review/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_OWNER", "ROLE_CUSTOMER")
+                .antMatchers("/order/cart/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_OWNER", "ROLE_CUSTOMER")
+                .antMatchers("/order/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_OWNER")
+                .antMatchers("/order/confirm-delivered/**").hasAnyAuthority("ROLE_DELIVERY")
+                .antMatchers("/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_OWNER", "ROLE_CUSTOMER", "ROLE_DELIVERY")
+                .antMatchers("/shop/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_OWNER", "ROLE_DELIVERY")
+                .antMatchers(HttpMethod.GET, "/shop/**").hasAnyAuthority("ROLE_CUSTOMER")
+                .antMatchers("/category/**")
+                .hasAnyAuthority("ROLE_ADMIN", "ROLE_OWNER", "ROLE_CUSTOMER", "ROLE_DELIVERY")
+                .antMatchers("/menu/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_OWNER", "ROLE_DELIVERY")
+                .antMatchers(HttpMethod.GET, "/menu/**").hasAnyAuthority("ROLE_CUSTOMER")
+                .anyRequest().authenticated()
+                .and()
+                .addFilter(jwtAuthenticationFilter)
+                .addFilterBefore(new JwtAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
+                // this disables session creation on Spring Security
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
+
 }

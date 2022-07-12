@@ -1,13 +1,31 @@
 package com.dom.food.shop.model;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class ShopModel {
     private Integer shopId;
+    @NotBlank
     private String address;
+    @NotBlank
     private String phone;
+    @Size(min = 1)
     private String userId;
     private String createAt;
     private String updateAt;
     private String name;
+    @Email
+    @NotBlank
+    private String email;
+
+    public String getEmail() {
+        return this.email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     public String getName() {
         return this.name;

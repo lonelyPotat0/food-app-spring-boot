@@ -8,6 +8,7 @@
                 phone,
                 password,
                 email,
+                address,
                 role
         )
         VALUES (
@@ -15,6 +16,7 @@
                 #{phone},
                 #{password},
                 #{email},
+                #{address},
                 #{role}
         )
     </insert>

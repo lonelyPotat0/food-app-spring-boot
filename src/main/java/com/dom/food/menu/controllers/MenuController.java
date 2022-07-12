@@ -5,7 +5,7 @@ import com.dom.food.menu.services.MenuService;
 
 import javax.validation.Valid;
 
-import org.apache.ibatis.annotations.Delete;
+// import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
