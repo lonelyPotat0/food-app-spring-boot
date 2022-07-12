@@ -500,7 +500,8 @@ path
 ```
  /review
 ```
-```
+body
+``` json
     {
         "reviewId": 2,
         "customerId": 1
