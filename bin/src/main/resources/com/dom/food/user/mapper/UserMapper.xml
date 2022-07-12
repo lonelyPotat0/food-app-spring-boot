@@ -47,15 +47,11 @@
         select COUNT(*) as total from `tbl_user` where `email` = "${email}"
     </select>
 
-    <select id="getUser" parameterType="int" resultType="com.dom.food.user.models.UserModel">
+    <select id="getUser" parameterType="int" resultType="map">
         SELECT 
                 fullname,
                 phone,
-                role,
-                address,
-                email,
-                create_at as createAt,
-                update_at as updateAt
+                role 
         from `tbl_user`
         <if test="id">
                 where user_id = #{id}

@@ -25,7 +25,7 @@ public class UserService implements UserDetailsService {
     BCryptPassword bcrypt = new BCryptPassword();
 
     public ResponseEntity<?> createUser(UserModel userModel) {
-        
+
         if (this.isExistByPhoneNumber(userModel)) {
             return ResponseEntity.badRequest().body("phone number already taken");
         }
@@ -34,12 +34,12 @@ public class UserService implements UserDetailsService {
         }
 
         userModel.setPassword(bcrypt.HashPassword(userModel.getPassword()));
-        return this.userMapper.createUser(userModel) ? ResponseEntity.ok().body(userModel.getUserId())
+        return this.userMapper.createUser(userModel) ? ResponseEntity.ok().body(userModel)
                 : ResponseEntity.badRequest().body("failed");
     }
 
-    public ResponseEntity<?> getUserInformation(Integer id) {
-        return ResponseEntity.ok().body(this.userMapper.getUser(id));
+    public UserModel getUserInformation(Integer id) {
+        return this.userMapper.getUser(id);
     }
 
     public ResponseEntity<?> updateUser(UserModel userModel) {
@@ -66,7 +66,7 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        System.out.println(" =================?" + email);
+        // System.out.println(" =================?" + email);
 
         UserModel user = userMapper.findByEmail(email);
         if (user == null) {

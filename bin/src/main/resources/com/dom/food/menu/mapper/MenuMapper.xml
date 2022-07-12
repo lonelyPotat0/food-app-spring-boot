@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dom.food.menu.mapper.MenuMapper">
+
+    <insert id="createMenu" parameterType="hashmap">
+        INSERT into `tbl_menu` (
+                name,
+                shop_id,
+                price,
+                category_id,
+                image
+        )
+        VALUES (
+                #{name},
+                #{shopId},
+                #{price},
+                #{categoryId},
+                #{image}
+        )
+    </insert>
+
+    <select id="getAllMenu" resultType="map">
+        SELECT 
+            shop_id as shopId,
+            image,
+            category_id as categoryId,
+            price,
+            name,
+            update_at as updateAt,
+            create_at as createAt,
+            menu_id as menuId
+        from `tbl_menu`
+        <if test="name != null">
+            where name like "%${name}%"
+        </if>
+        <if test="perPage > 0 and page > 0">
+            LIMIT #{offset}, #{perPage}
+        </if>
+    </select>
+
+    <select id="getMenuByShopId" resultType="map">
+        SELECT 
+                shop_id as shopId,
+                image,
+                category_id as categoryId,
+                price,
+                name,
+                update_at as updateAt,
+                create_at as createAt,
+                menu_id as menuId
+            from `tbl_menu`
+            where shop_id = #{shopId}
+        <if test="name != null">
+            AND name like "%${name}%"
+        </if>
+        <if test="perPage > 0 and page > 0">
+            LIMIT #{offset}, #{perPage}
+        </if>
+    </select>
+
+    <select id="getMenu" parameterType="int" resultType="map">
+        SELECT 
+                shop_id as shopId,
+                image,
+                category_id as categoryId,
+                price,
+                name,
+                update_at as updateAt,
+                create_at as createAt,
+                menu_id as menuId
+        from `tbl_menu`
+                where menu_id = #{id}
+                
+    </select>
+
+    <update id="updateMenu" parameterType="hashmap">
+        UPDATE `tbl_menu`
+        <set>
+            <if test="name != null">name = #{name},</if>
+            <if test="price != 0">price = #{price},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="categoryId != null">category_id = #{categoryId},</if>
+        </set>
+        WHERE menu_id = #{menuId}
+    </update>
+
+
+    <delete id="deleteMenu" parameterType="hashmap">
+        DELETE from `tbl_menu` where menu_id = #{id}
+    </delete>
+
+    <select id="countMenuById" resultType="int">
+        <!--resultMap="result"-->
+        SELECT count(menu_id) from tbl_menu
+        <if test="shopId != 0">
+            where shop_id = #{shopId}
+        </if>
+    </select>
+
+    <select id="countMenuByName" resultType="int">
+        <!--resultMap="result"-->
+        SELECT count(menu_id) from tbl_menu
+        <if test="name != null">
+            where name like "%${name}%"
+        </if>
+    </select>
+
+</mapper>

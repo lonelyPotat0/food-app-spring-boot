@@ -11,7 +11,7 @@ public interface UserMapper {
 
     boolean createUser(UserModel user);
 
-    Object getUser(Integer id);
+    UserModel getUser(Integer id);
 
     boolean updateUser(UserModel user);
 

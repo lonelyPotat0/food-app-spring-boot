@@ -36,72 +36,81 @@ public class UserModel {
         return this.userId;
     }
 
-    public void setUserId(Integer userId) {
+    public UserModel setUserId(Integer userId) {
         this.userId = userId;
+        return this;
     }
 
     public String getFullname() {
         return this.fullname;
     }
 
-    public void setFullname(String fullname) {
+    public UserModel setFullname(String fullname) {
         this.fullname = fullname;
+        return this;
     }
 
     public String getEmail() {
         return this.email;
     }
 
-    public void setEmail(String email) {
+    public UserModel setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public String getPhone() {
         return this.phone;
     }
 
-    public void setPhone(String phone) {
+    public UserModel setPhone(String phone) {
         this.phone = phone;
+        return this;
     }
 
     public String getPassword() {
         return this.password;
     }
 
-    public void setPassword(String password) {
+    public UserModel setPassword(String password) {
         this.password = password;
+        return this;
     }
 
     public ERole getRole() {
         return this.role;
     }
 
-    public void setRole(ERole role) {
+    public UserModel setRole(ERole role) {
         this.role = role;
+        return this;
     }
 
     public String getCreateAt() {
         return this.createAt;
     }
 
-    public void setCreateAt(String createAt) {
+    public UserModel setCreateAt(String createAt) {
         this.createAt = createAt;
+        return this;
     }
 
     public String getUpdateAt() {
         return this.updateAt;
     }
 
-    public void setUpdateAt(String updateAt) {
+    public UserModel setUpdateAt(String updateAt) {
         this.updateAt = updateAt;
+        return this;
     }
 
     public String getAddress() {
         return this.address;
     }
 
-    public void setAddress(String address) {
+    public UserModel setAddress(String address) {
         this.address = address;
+        return this;
     }
 
     @Override

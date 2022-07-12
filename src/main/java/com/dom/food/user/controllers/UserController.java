@@ -27,15 +27,15 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUserInformation(@PathVariable("id") String id) {
+    public UserModel getUserInformation(@PathVariable("id") String id) {
         System.out.println("======> " + id);
         return this.userService.getUserInformation(Integer.parseInt(id));
     }
 
-    @GetMapping()
-    public ResponseEntity<?> getUserInformation() {
-        return ResponseEntity.badRequest().body("no user");
-    }
+    // @GetMapping()
+    // public ResponseEntity<UserModel> getUserInformation() {
+    // return ResponseEntity.badRequest().body("no user");
+    // }
 
     @PutMapping()
     public ResponseEntity<?> updateUser(@Valid @RequestBody UserModel userModel) {
