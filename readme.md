@@ -500,11 +500,10 @@ path
 ```
  /review
 ```
-
-
-{
-	"reviewId": 2,
-	"customerId": 1
-}
+```
+    {
+        "reviewId": 2,
+        "customerId": 1
+    }
 ```
 
