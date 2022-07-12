@@ -106,7 +106,7 @@ method: PUT
 
 path
 ```
- /api/auth/check-2fa-status
+ /user
 ```
 body
 ```json
