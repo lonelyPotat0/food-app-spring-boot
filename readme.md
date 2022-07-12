@@ -62,7 +62,7 @@ mvn spring-boot:run
 
 ## APi document
 
- All requests are post request  (Everything else except login and signup required Bearer token
+ All requests are post request  (Everything else except login and signup required Bearer token)
 
 #### Login
 
