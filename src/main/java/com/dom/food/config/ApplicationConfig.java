@@ -2,9 +2,8 @@ package com.dom.food.config;
 
 import com.dom.food.filter.JwtAuthenticationFilter;
 import com.dom.food.filter.JwtAuthorizationFilter;
-// import lombok.RequiredArgsConstructor;
-// import lombok.extern.slf4j.Slf4j;
-
+import com.google.common.util.concurrent.RateLimiter;
+import java.time.Duration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,6 +18,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+// import lombok.RequiredArgsConstructor;
+// import lombok.extern.slf4j.Slf4j;
+
+
 
 // @Slf4j
 // @Configuration
@@ -36,6 +39,11 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
     // @Autowired
     // BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Bean
+    public RateLimiter rateLimiter(){
+        return  RateLimiter.create(1, Duration.ofSeconds(10));
+    }
+    
     @Bean
     public PasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();

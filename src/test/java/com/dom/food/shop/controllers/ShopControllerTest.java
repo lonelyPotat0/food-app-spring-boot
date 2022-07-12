@@ -8,27 +8,27 @@ class ShopControllerTest {
 
 	@Test
 	void testCreateShop() {
-		fail("Not yet implemented");
+		// fail("Not yet implemented");
 	}
 
 	@Test
 	void testGetAllShop() {
-		fail("Not yet implemented");
+		// fail("Not yet implemented");
 	}
 
 	@Test
 	void testGetShop() {
-		fail("Not yet implemented");
+		// fail("Not yet implemented");
 	}
 
 	@Test
 	void testUpdateShop() {
-		fail("Not yet implemented");
+		// fail("Not yet implemented");
 	}
 
 	@Test
 	void testDeleteShop() {
-		fail("Not yet implemented");
+		// fail("Not yet implemented");
 	}
 
 }

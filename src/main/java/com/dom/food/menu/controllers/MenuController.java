@@ -2,10 +2,8 @@ package com.dom.food.menu.controllers;
 
 import com.dom.food.menu.models.MenuModel;
 import com.dom.food.menu.services.MenuService;
-
+import com.google.common.util.concurrent.RateLimiter;
 import javax.validation.Valid;
-
-// import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -19,12 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 @RequestMapping("/menu")
 public class MenuController {
 
     @Autowired
     MenuService menuService;
+
+    @Autowired
+    RateLimiter rateLimiter;
 
     @PostMapping("create")
     public ResponseEntity<?> createMenu(@Valid @RequestBody MenuModel menu) {
@@ -36,7 +38,9 @@ public class MenuController {
             @RequestParam(defaultValue = "1") String page,
             @RequestParam(defaultValue = "10") String perPage,
             @RequestParam(defaultValue = "") String name) {
+        rateLimiter.acquire();
         return this.menuService.getAllMenu(Integer.parseInt(page), Integer.parseInt(perPage), name);
+        
     }
 
     @GetMapping("/{id}")
@@ -53,7 +57,7 @@ public class MenuController {
         return this.menuService.getMenuByShop(Integer.parseInt(page), Integer.parseInt(perPage), name,
                 Integer.parseInt(id));
     }
-
+   
     @PutMapping()
     public ResponseEntity<?> updateMenu(@RequestBody MenuModel menu) {
         return this.menuService.updateMenu(menu);
@@ -63,11 +67,5 @@ public class MenuController {
     public ResponseEntity<?> deleteMenu(@PathVariable("id") String id) {
         return this.menuService.deleteMenu(Integer.parseInt(id));
     }
-
-    // @GetMapping("/test")
-    // public ResponseEntity<?> test(@RequestParam(defaultValue = "0") String id) {
-    // System.out.println("======================>" + id);
-    // return this.menuService.test(Integer.parseInt(id));
-    // }
 
 }
