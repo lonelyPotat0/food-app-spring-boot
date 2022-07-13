@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -33,17 +32,12 @@ public class UserService implements UserDetailsService {
         return this.userMapper.getUser(id);
     }
 
-    public ResponseEntity<?> updateUser(UserModel userModel) {
-        if (this.isExistByPhoneNumber(userModel)) {
-            return ResponseEntity.badRequest().body("phone number already taken");
-        }
-        return this.userMapper.updateUser(userModel) ? ResponseEntity.ok().body(userModel)
-                : ResponseEntity.badRequest().body("failed");
+    public UserModel updateUser(UserModel userModel) {
+        return this.userMapper.updateUser(userModel) ? userModel : null;
     }
 
-    public ResponseEntity<?> deleteUser(Integer id) {
-        return this.userMapper.deleteUser(id) ? ResponseEntity.ok().body("deleted")
-                : ResponseEntity.badRequest().body("failed");
+    public boolean deleteUser(Integer id) {
+        return this.userMapper.deleteUser(id);
     }
 
     public boolean isExistByPhoneNumber(UserModel userModel) {
