@@ -41,7 +41,7 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean isExistByPhoneNumber(UserModel userModel) {
-        return userModel.getPhone() == null ? true : this.userMapper.existsByPhone(userModel);
+        return userModel.getPhone() == null ? false : this.userMapper.existsByPhone(userModel);
     }
 
     public boolean existsByEmail(String email) {
