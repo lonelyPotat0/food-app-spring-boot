@@ -31,7 +31,7 @@
     <select id="existsByPhone" parameterType="hashmap" resultType="boolean">
         select COUNT(*) as total from `tbl_user` where `phone` = "${phone}"
         <if test="userId != null">
-            AND id != #{userId}
+            AND user_id != #{userId}
         </if>
     </select>
 
@@ -72,7 +72,7 @@
                 WHERE user_id = #{userId}
     </update>
 
-    <update id="updateRole" parameterType="hashmap">
+    <update id="updateRole" parameterType="hashmap" useGeneratedKeys="true" keyColumn="user_id" keyProperty="userId">
         UPDATE `tbl_user`
          <set>
              <if test="role != null">role = #{role}</if>
@@ -80,7 +80,7 @@
                 WHERE user_id = #{userId}
     </update>
 
-    <delete id="deleteUser" parameterType="hashmap">
+    <delete id="deleteUser" parameterType="int">
         DELETE from `tbl_user` where user_id = #{id}
     </delete>
 

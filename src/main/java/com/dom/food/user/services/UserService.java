@@ -3,6 +3,8 @@ package com.dom.food.user.services;
 import com.dom.food.ultilities.BCryptPassword;
 import com.dom.food.user.mapper.UserMapper;
 import com.dom.food.user.models.UserModel;
+import java.util.ArrayList;
+import java.util.Collection;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -12,8 +14,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Collection;
 
 @Service
 @RequiredArgsConstructor
@@ -24,18 +24,9 @@ public class UserService implements UserDetailsService {
 
     BCryptPassword bcrypt = new BCryptPassword();
 
-    public ResponseEntity<?> createUser(UserModel userModel) {
-
-        if (this.isExistByPhoneNumber(userModel)) {
-            return ResponseEntity.badRequest().body("phone number already taken");
-        }
-        if (this.existsByEmail(userModel.getEmail())) {
-            return ResponseEntity.badRequest().body("email already taken");
-        }
-
+    public UserModel createUser(UserModel userModel) {
         userModel.setPassword(bcrypt.HashPassword(userModel.getPassword()));
-        return this.userMapper.createUser(userModel) ? ResponseEntity.ok().body(userModel)
-                : ResponseEntity.badRequest().body("failed");
+        return this.userMapper.createUser(userModel) ? userModel : null;
     }
 
     public UserModel getUserInformation(Integer id) {
@@ -46,7 +37,7 @@ public class UserService implements UserDetailsService {
         if (this.isExistByPhoneNumber(userModel)) {
             return ResponseEntity.badRequest().body("phone number already taken");
         }
-        return this.userMapper.updateUser(userModel) ? ResponseEntity.ok().body("updated")
+        return this.userMapper.updateUser(userModel) ? ResponseEntity.ok().body(userModel)
                 : ResponseEntity.badRequest().body("failed");
     }
 
@@ -55,19 +46,16 @@ public class UserService implements UserDetailsService {
                 : ResponseEntity.badRequest().body("failed");
     }
 
-    private boolean isExistByPhoneNumber(UserModel userModel) {
+    public boolean isExistByPhoneNumber(UserModel userModel) {
         return this.userMapper.existsByPhone(userModel);
     }
 
-    private boolean existsByEmail(String email) {
+    public boolean existsByEmail(String email) {
         return this.userMapper.existsByEmail(email);
     }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-        // System.out.println(" =================?" + email);
-
         UserModel user = userMapper.findByEmail(email);
         if (user == null) {
             throw new UsernameNotFoundException("User not found in the database");
