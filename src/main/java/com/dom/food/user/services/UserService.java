@@ -26,7 +26,7 @@ public class UserService implements UserDetailsService {
     public UserModel createUser(UserModel userModel) {
         userModel.setPassword(bcrypt.HashPassword(userModel.getPassword()));
         return this.userMapper.createUser(userModel) ? userModel : null;
-    }
+    }    
 
     public UserModel getUserInformation(Integer id) {
         return this.userMapper.getUser(id);
@@ -41,7 +41,7 @@ public class UserService implements UserDetailsService {
     }
 
     public boolean isExistByPhoneNumber(UserModel userModel) {
-        return this.userMapper.existsByPhone(userModel);
+        return userModel.getPhone() == null ? true : this.userMapper.existsByPhone(userModel);
     }
 
     public boolean existsByEmail(String email) {

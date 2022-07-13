@@ -44,7 +44,7 @@ public class UserController {
         if (this.userService.isExistByPhoneNumber(userModel)) {
             this.Exception(HttpStatus.BAD_REQUEST, "phone number already taken");
         }
-        UserModel user = this.userService.createUser(userModel);
+        UserModel user = this.userService.updateUser(userModel);
         return user != null ? user : this.Exception(HttpStatus.BAD_REQUEST, "fail");
     }
 

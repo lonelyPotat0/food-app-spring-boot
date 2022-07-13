@@ -4,103 +4,50 @@ import com.dom.food.user.mapper.UserMapper;
 import com.dom.food.user.models.ERole;
 import com.dom.food.user.models.UserModel;
 import com.dom.food.user.services.UserService;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-//import io.restassured.RestAssured;
-//import static io.restassured.RestAssured.when;
-//import static io.restassured.RestAssured.given;
-
-
-//import org.junit.jupiter.api.BeforeAll;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.util.Assert;
-import org.springframework.web.context.WebApplicationContext;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-//import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.;
 
-
-import org.slf4j.Logger;
-
-// @RunWith(SpringJUnit4ClassRunner.class)
-//@SpringBootTest(classes = UserController.class)
-@WebAppConfiguration
-@WebMvcTest
+@SpringBootTest
 class UserControllerTest {
 
-	@MockBean
-	UserService userService;
 
-	@MockBean
-	UserMapper userMapper;
+    @MockBean
+    UserService userService;
 
-	@Mock
-	Logger logger;
+    @MockBean
+    private UserMapper userMapper;
 
-	@Autowired
-	private MockMvc mockMvc;
-	
-	ERole role;
+    ERole role;
 
+    @Test
+    void createUser() {
+        UserModel insertUser = new UserModel(null, "dom", "dddddddom@mail.com" , "0921115", "123456" , ERole.ROLE_CUSTOMER, "phnom penh", null, null);
+        UserModel responseUser = new UserModel(1, "dom", "dddddddom@mail.com" , "0921115", "$2a$10$DbEnFQQUZG.vDbrwXhru..UTjjmGGu2oV2IqpWPU0d.m1EdzVN.0a" , ERole.ROLE_CUSTOMER, "phnom penh", null, null);
+        when(userService.createUser(insertUser)).thenReturn(responseUser);
+        assertEquals(1, responseUser.getUserId());
+    }
 
-	private static ObjectMapper mapper = new ObjectMapper();
+    @Test
+    void getUserInformation() {
+        UserModel user = new UserModel(1, "dom", "dom@mail.com" , "0123456789", null , ERole.ROLE_CUSTOMER, "phnom penh", "2022-07-11 12:35:52", "2022-07-11 12:35:52");
+        when(userService.getUserInformation(1)).thenReturn(user);
+        assertEquals(1, user.getUserId());
+    }
 
-	public static String asJsonString(final Object obj) {
-		try {
-			return new ObjectMapper().writeValueAsString(obj);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
+    @Test
+    void updateUser() {
+        UserModel user = new UserModel();
+        user.setPhone("01244556").setFullname("yim dom").setUserId(1);
+        when(userService.getUserInformation(1)).thenReturn(user);
+    }
 
-
-
-	
-	@Test
-	void testCreateUser() throws Exception {
-
-		UserModel userModel = new UserModel();
-		userModel.setFullname("dom").setPhone("012098765").setPassword("123456").setRole(role.ROLE_CUSTOMER)
-				.setEmail("yimoudom@hotmail.com").setAddress("phnom penh");
-		Mockito.when(logger.isInfoEnabled()).thenReturn(false);
-		
-		String json = mapper.writeValueAsString(userModel);	
-		MvcResult requestResult = mockMvc.perform(post("/user/create").contentType(MediaType.APPLICATION_JSON)
-				.characterEncoding("utf-8").content(json).accept(MediaType.APPLICATION_JSON)).andReturn();	
-		String result = requestResult.getResponse().getContentAsString();
-		Assert.notNull(result);
-	}
-
-		
-	@Test
-	void testGetUserInformation() throws Exception {
-		UserModel userModel = new UserModel();
-		when(userMapper.getUser(1)).thenReturn(userModel);
-		assertEquals(1, userModel.getUserId());
-		
-	}
-
-	@Test
-	void testUpdateUser() {
-		
-	}
-
-	@Test
-	void testDeleteUser() {
-	}
-
+    @Test
+    void deleteUser() {
+    }
 }

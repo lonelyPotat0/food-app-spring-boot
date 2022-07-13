@@ -49,6 +49,7 @@
 
     <select id="getUser" parameterType="int" resultType="com.dom.food.user.models.UserModel">
         SELECT 
+                user_id as userId,
                 fullname,
                 phone,
                 role,

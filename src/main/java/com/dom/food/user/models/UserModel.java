@@ -1,11 +1,11 @@
 package com.dom.food.user.models;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import lombok.Data;
+
 
 // @Entity
 @Data
@@ -31,6 +31,22 @@ public class UserModel {
     private String address;
     private String createAt;
     private String updateAt;
+
+
+    public UserModel() {
+    }
+
+    public UserModel(Integer userId, String fullname, String email, String phone, String password, ERole role, String address, String createAt, String updateAt) {
+        this.userId = userId;
+        this.fullname = fullname;
+        this.email = email;
+        this.phone = phone;
+        this.password = password;
+        this.role = role;
+        this.address = address;
+        this.createAt = createAt;
+        this.updateAt = updateAt;
+    }
 
     public Integer getUserId() {
         return this.userId;
