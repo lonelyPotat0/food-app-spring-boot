@@ -22,64 +22,72 @@ public class PaymentModel {
         return this.orderId;
     }
 
-    public void setOrderId(Integer orderId) {
+    public PaymentModel setOrderId(Integer orderId) {
         this.orderId = orderId;
+        return this;
     }
 
     public boolean getIsPaid() {
         return this.isPaid;
     }
 
-    public void setIsPaid(boolean isPaid) {
+    public PaymentModel setIsPaid(boolean isPaid) {
         this.isPaid = isPaid;
+        return this;
     }
 
     public Integer getPaymentId() {
         return this.paymentId;
     }
 
-    public void setPaymentId(Integer paymentId) {
+    public PaymentModel setPaymentId(Integer paymentId) {
         this.paymentId = paymentId;
+        return this;
     }
 
     public float getAmount() {
         return this.amount;
     }
 
-    public void setAmount(float amount) {
+    public PaymentModel setAmount(float amount) {
         this.amount = amount;
+        return this;
     }
 
     public Integer getPaidBy() {
         return this.paidBy;
     }
 
-    public void setPaidBy(Integer paidBy) {
+    public PaymentModel setPaidBy(Integer paidBy) {
         this.paidBy = paidBy;
+        return this;
     }
 
     public Integer getProcessedBy() {
         return this.processedBy;
     }
 
-    public void setProcessedBy(Integer processedBy) {
+    public PaymentModel setProcessedBy(Integer processedBy) {
         this.processedBy = processedBy;
+        return this;
     }
 
     public String getCreateAt() {
         return this.createAt;
     }
 
-    public void setCreateAt(String createAt) {
+    public PaymentModel setCreateAt(String createAt) {
         this.createAt = createAt;
+        return this;
     }
 
     public String getUpdateAt() {
         return this.updateAt;
     }
 
-    public void setUpdateAt(String updateAt) {
+    public PaymentModel setUpdateAt(String updateAt) {
         this.updateAt = updateAt;
+        return this;
     }
 
     @Override

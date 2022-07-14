@@ -65,6 +65,7 @@ public class ApplicationConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/review/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_OWNER", "ROLE_CUSTOMER")
                 .antMatchers("/order/cart/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_OWNER", "ROLE_CUSTOMER")
                 .antMatchers("/order/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_OWNER")
+                .antMatchers(HttpMethod.GET, "/order/**").hasAnyAuthority("ROLE_CUSTOMER")
                 .antMatchers("/order/confirm-delivered/**").hasAnyAuthority("ROLE_DELIVERY")
                 .antMatchers("/user/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_OWNER", "ROLE_CUSTOMER", "ROLE_DELIVERY")
                 .antMatchers("/shop/**").hasAnyAuthority("ROLE_ADMIN", "ROLE_OWNER", "ROLE_DELIVERY")

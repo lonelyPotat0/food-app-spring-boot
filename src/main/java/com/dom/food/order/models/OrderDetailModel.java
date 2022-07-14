@@ -10,7 +10,7 @@ public class OrderDetailModel {
     private Integer menuId;
     @Size(min = 1)
     private Integer numberServed;
-    private float amount;
+    private double amount;
     private float totalAmount;
     private boolean delivered;
     private Integer customerId;
@@ -21,13 +21,13 @@ public class OrderDetailModel {
     public OrderDetailModel() {
     }
 
-    public OrderDetailModel(Integer orderId, Integer menuId, Integer numberServed, float amount, Integer customerId,
+    public OrderDetailModel(Integer orderId, Integer menuId, Integer numberServed, double amount, Integer customerId,
             Integer shopId) {
         this.orderId = orderId;
         this.menuId = menuId;
         this.numberServed = numberServed;
         this.amount = amount;
-        this.totalAmount = amount * numberServed;
+        this.totalAmount = (float) (amount * numberServed);
         this.customerId = customerId;
         this.shopId = shopId;
     }
@@ -88,7 +88,7 @@ public class OrderDetailModel {
         this.numberServed = numberServed;
     }
 
-    public float getAmount() {
+    public double getAmount() {
         return this.amount;
     }
 

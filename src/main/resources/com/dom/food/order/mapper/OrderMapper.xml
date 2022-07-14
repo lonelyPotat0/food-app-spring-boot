@@ -2,8 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dom.food.order.mapper.OrderMapper">
 
-    <insert id="addToCart" parameterType="hashmap">
-        <!-- useGeneratedKeys="true" keyColumn="cart_id" keyProperty="cartId"> -->
+    <insert id="addToCart" parameterType="hashmap" useGeneratedKeys="true" keyColumn="cart_item_id" keyProperty="cartItemId">
         INSERT into `tbl_cart_item` (
                 user_id,
                 menu_id,
@@ -122,7 +121,7 @@
         DELETE from `tbl_order` where order_id = #{orderId}
     </delete>
 
-    <select id="getOrderList" parameterType="int" resultType="map">
+    <select id="getOrderList" parameterType="map" resultType="map">
         select 
             o.order_id as orderId,
             o.customer_id as customerId,
@@ -143,7 +142,10 @@
         inner join tbl_order as o on od.order_id = o.order_id)
         inner join tbl_menu as m on od.menu_id = m.menu_id)
         inner join tbl_user as u on od.customer_id = u.user_id)
-        where od.shop_id = #{shopId}
+        <if test="shopId != 0">where od.shop_id = #{shopId}</if>
+        <if test="shopId != 0 and userId !=0">and</if>
+        <if test="userId != 0">od.customer_id = #{userId}</if>
+        <!-- where od.shop_id = #{shopId} -->
 
     </select>
 

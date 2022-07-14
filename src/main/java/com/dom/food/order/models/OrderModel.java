@@ -11,7 +11,7 @@ public class OrderModel {
     @NotBlank(message = "address must not be blank")
     private String deliveryAddress;
     // @Size(min = 1)
-    private float grandTotal;
+    private double grandTotal;
     // @Size(min = 1)
     private Integer processedBy;
     private String createAt;
@@ -21,56 +21,63 @@ public class OrderModel {
         return this.orderId;
     }
 
-    public void setOrderId(Integer orderId) {
+    public OrderModel setOrderId(Integer orderId) {
         this.orderId = orderId;
+        return this;
     }
 
     public Integer getCustomerId() {
         return this.customerId;
     }
 
-    public void setCustomerId(Integer customerId) {
+    public OrderModel setCustomerId(Integer customerId) {
         this.customerId = customerId;
+        return this;
     }
 
-    public float getGrandTotal() {
+    public double getGrandTotal() {
         return this.grandTotal;
     }
 
-    public void setGrandTotal(float grandTotal) {
+    public OrderModel setGrandTotal(double grandTotal) {
         this.grandTotal = grandTotal;
+        return this;
     }
 
     public Integer getProcessedBy() {
         return this.processedBy;
     }
 
-    public void setProcessedBy(Integer processedBy) {
+    public OrderModel setProcessedBy(Integer processedBy) {
         this.processedBy = processedBy;
+        return this;
     }
 
     public String getCreateAt() {
         return this.createAt;
     }
 
-    public void setCreateAt(String createAt) {
+    public OrderModel setCreateAt(String createAt) {
         this.createAt = createAt;
+        return this;
     }
 
     public String getUpdateAt() {
         return this.updateAt;
     }
 
-    public void setUpdateAt(String updateAt) {
+    public OrderModel setUpdateAt(String updateAt) {
         this.updateAt = updateAt;
+        return this;
     };
 
     public String getDeliveryAddress() {
         return this.deliveryAddress;
     }
 
-    public void setDeliveryAddress(String deliveryAddress) {
+    public OrderModel setDeliveryAddress(String deliveryAddress) {
         this.deliveryAddress = deliveryAddress;
+        return this;
     }
 
     @Override
