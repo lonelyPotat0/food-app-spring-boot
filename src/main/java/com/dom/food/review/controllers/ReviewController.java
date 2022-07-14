@@ -1,10 +1,11 @@
 package com.dom.food.review.controllers;
 
+import com.dom.food.review.models.ReviewModel;
+import com.dom.food.review.services.ReviewService;
 import java.util.List;
-
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dom.food.review.models.ReviewModel;
-import com.dom.food.review.services.ReviewService;
+
+
 
 // import lombok.RequiredArgsConstructor;
 
@@ -30,7 +31,7 @@ public class ReviewController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createReview(@Valid @RequestBody ReviewModel reviewModel) {
-        return this.reviewService.createReview(reviewModel);
+        return new ResponseEntity<ReviewModel>(this.reviewService.createReview(reviewModel), HttpStatus.CREATED);
     }
 
     @GetMapping("/{menuId}")
@@ -39,12 +40,16 @@ public class ReviewController {
     }
 
     @DeleteMapping()
-    public ResponseEntity<?> deleteReview(@RequestBody ReviewModel reviewModel) {
-        return this.reviewService.deleteReview(reviewModel);
+    public ResponseEntity<Boolean> deleteReview(@RequestBody ReviewModel reviewModel) {
+        return new ResponseEntity<Boolean>(this.reviewService.deleteReview(reviewModel) , HttpStatus.OK);
     }
 
     @PutMapping()
     public ResponseEntity<?> updateReview(@RequestBody ReviewModel reviewModel) {
-        return this.reviewService.updateReview(reviewModel);
+        // return this.reviewService.updateReview(reviewModel);
+        ReviewModel review = this.reviewService.updateReview(reviewModel);
+        return review != null ?
+            new ResponseEntity<ReviewModel>(review, HttpStatus.OK) :
+            new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
     }
 }

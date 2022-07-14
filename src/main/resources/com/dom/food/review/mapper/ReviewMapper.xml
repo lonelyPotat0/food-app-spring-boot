@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dom.food.review.mapper.ReviewMapper">
 
-    <insert id="createReview" parameterType="hashmap">
+    <insert id="createReview" parameterType="hashmap" useGeneratedKeys="true" keyColumn="review_id" keyProperty="reviewId">
         INSERT into `tbl_customer_review` (
                 
                 <if test="comment != null"> comment, </if>
@@ -25,6 +25,7 @@
                 rating,
                 menu_id as menuId,
                 customer_id as customerId,
+                comment,
                 update_at as updateAt,
                 create_at as createAt
         from `tbl_customer_review` where menu_id = #{menuId}

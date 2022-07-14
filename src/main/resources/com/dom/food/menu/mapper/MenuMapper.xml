@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dom.food.menu.mapper.MenuMapper">
 
-    <insert id="createMenu" parameterType="hashmap">
+    <insert id="createMenu" parameterType="hashmap" useGeneratedKeys="true" keyColumn="menu_id" keyProperty="menuId">
         INSERT into `tbl_menu` (
                 name,
                 shop_id,
@@ -58,7 +58,7 @@
         </if>
     </select>
 
-    <select id="getMenu" parameterType="int" resultType="map">
+    <select id="getMenu" parameterType="int" resultType="com.dom.food.menu.models.MenuModel">
         SELECT 
                 shop_id as shopId,
                 image,
@@ -89,7 +89,7 @@
         DELETE from `tbl_menu` where menu_id = #{id}
     </delete>
 
-    <select id="countMenuById" resultType="int">
+    <select id="countMenuByShopId" resultType="int">
         <!--resultMap="result"-->
         SELECT count(menu_id) from tbl_menu
         <if test="shopId != 0">

@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `tbl_menu` (
     `category_id` INT NOT NULL,
     `name` VARCHAR(50) NOT NULL,
     `price` FLOAT NOT NULL,
-    `image` VARCHAR(255) NOT NULL,
+    `image` VARCHAR(255),
     `create_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `update_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`menu_id`)

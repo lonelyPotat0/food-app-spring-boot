@@ -85,7 +85,6 @@ class ShopControllerTest {
         ShopModel shop = new ShopModel(1, "kpc", "012312312", 1, "shop1", "potato@mail.com");
         Mockito.when(shopService.updateShop(shop)).thenReturn(shop);
         String content = gson.toJson(shop);
-//        System.out.println("--------------------------" + shopService.updateShop(shop));
         mvc.perform(put("/shop")
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)

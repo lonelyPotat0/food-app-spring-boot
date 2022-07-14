@@ -30,7 +30,10 @@ public class ShopController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createShop(@Valid @RequestBody ShopModel shop) {
-        return new ResponseEntity<ShopModel>(this.shopService.createShop(shop), HttpStatus.CREATED);
+        ShopModel createShop = this.shopService.createShop(shop);
+        return createShop == null ? 
+            new ResponseEntity<>("failed", HttpStatus.BAD_REQUEST)
+            : new ResponseEntity<ShopModel>(createShop, HttpStatus.CREATED);
     }
 
     @GetMapping()
@@ -46,7 +49,9 @@ public class ShopController {
     @PutMapping()
     public ResponseEntity<?> updateShop(@RequestBody ShopModel shop) {
         ShopModel updatedShop = this.shopService.updateShop(shop);
-        return new ResponseEntity<ShopModel>(updatedShop, HttpStatus.OK);
+        return updatedShop == null ? 
+            new ResponseEntity<>("update failed", HttpStatus.BAD_REQUEST)
+            : new ResponseEntity<ShopModel>(updatedShop, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

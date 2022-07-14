@@ -9,7 +9,7 @@ public class MenuModel {
     private String name;
     // @NotBlank(message = "price can't be blank")
     @NotNull
-    private float price;
+    private double price;
     @NotBlank(message = "shopId can't be blank")
     private Integer shopId;
     @NotBlank(message = "categoryId can't be blank")
@@ -18,68 +18,92 @@ public class MenuModel {
     private String updateAt;
     private String image;
 
+
+
+    public MenuModel() {
+    }
+
+    public MenuModel(Integer menuId, String name, double price, Integer shopId, Integer categoryId, String createAt, String updateAt, String image) {
+        this.menuId = menuId;
+        this.name = name;
+        this.price = price;
+        this.shopId = shopId;
+        this.categoryId = categoryId;
+        this.createAt = createAt;
+        this.updateAt = updateAt;
+        this.image = image;
+    }
+
     public Integer getMenuId() {
         return this.menuId;
     }
 
-    public void setMenuId(Integer menuId) {
+    public MenuModel setMenuId(Integer menuId) {
         this.menuId = menuId;
+        return this;
     }
 
     public String getName() {
         return this.name;
     }
 
-    public void setName(String name) {
+    public MenuModel setName(String name) {
         this.name = name;
+        return this;
     }
 
-    public float getPrice() {
+    public double getPrice() {
         return this.price;
     }
 
-    public void setPrice(float price) {
+    public MenuModel setPrice(double price) {
         this.price = price;
+        return this;
     }
 
     public String getImage() {
         return this.image;
     }
 
-    public void setImage(String image) {
+    public MenuModel setImage(String image) {
         this.image = image;
+        return this;
     }
 
     public Integer getShopId() {
         return this.shopId;
     }
 
-    public void setShopId(Integer shopId) {
+    public MenuModel setShopId(Integer shopId) {
         this.shopId = shopId;
+        return this;
     }
 
     public Integer getCategoryId() {
         return this.categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public MenuModel setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
+        return this;
     }
 
     public String getCreateAt() {
         return this.createAt;
     }
 
-    public void setCreateAt(String createAt) {
+    public MenuModel setCreateAt(String createAt) {
         this.createAt = createAt;
+        return this;
     }
 
     public String getUpdateAt() {
         return this.updateAt;
     }
 
-    public void setUpdateAt(String updateAt) {
+    public MenuModel setUpdateAt(String updateAt) {
         this.updateAt = updateAt;
+        return this;
     }
 
     @Override

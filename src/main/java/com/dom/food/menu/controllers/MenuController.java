@@ -1,10 +1,12 @@
 package com.dom.food.menu.controllers;
 
 import com.dom.food.menu.models.MenuModel;
+import com.dom.food.menu.models.MenuResult;
 import com.dom.food.menu.services.MenuService;
 import com.google.common.util.concurrent.RateLimiter;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
+
 @RestController
 @RequestMapping("/menu")
 public class MenuController {
@@ -29,12 +32,15 @@ public class MenuController {
     RateLimiter rateLimiter;
 
     @PostMapping("create")
-    public ResponseEntity<?> createMenu(@Valid @RequestBody MenuModel menu) {
-        return this.menuService.createMenu(menu);
+    public ResponseEntity<?> createMenu(@Valid @RequestBody MenuModel menuModel) {
+        MenuModel menu = this.menuService.createMenu(menuModel);
+        return menu != null ? 
+            new ResponseEntity<>(this.menuService.createMenu(menu), HttpStatus.CREATED)
+            : new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping()
-    public @ResponseBody Object getAllMenu(
+    public @ResponseBody MenuResult getAllMenu(
             @RequestParam(defaultValue = "1") String page,
             @RequestParam(defaultValue = "10") String perPage,
             @RequestParam(defaultValue = "") String name) {
@@ -44,12 +50,12 @@ public class MenuController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getMenu(@PathVariable("id") String id) {
-        return this.menuService.getMenu(Integer.parseInt(id));
+    public ResponseEntity<MenuModel> getMenu(@PathVariable("id") String id) {
+        return new ResponseEntity<>(this.menuService.getMenu(Integer.parseInt(id)), HttpStatus.OK);
     }
 
     @GetMapping("/shop/{id}")
-    public @ResponseBody Object getMenuByShop(
+    public @ResponseBody MenuResult getMenuByShop(
             @PathVariable("id") String id,
             @RequestParam(defaultValue = "1") String page,
             @RequestParam(defaultValue = "10") String perPage,
@@ -59,13 +65,16 @@ public class MenuController {
     }
    
     @PutMapping()
-    public ResponseEntity<?> updateMenu(@RequestBody MenuModel menu) {
-        return this.menuService.updateMenu(menu);
+    public ResponseEntity<?> updateMenu(@RequestBody MenuModel menuModel) {
+        MenuModel menu = this.menuService.updateMenu(menuModel);
+        return menu != null ? 
+            new ResponseEntity<MenuModel>(this.menuService.createMenu(menu), HttpStatus.OK)
+            : new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteMenu(@PathVariable("id") String id) {
-        return this.menuService.deleteMenu(Integer.parseInt(id));
+    public ResponseEntity<Boolean> deleteMenu(@PathVariable("id") String id) {
+        return new ResponseEntity<Boolean>(this.menuService.deleteMenu(Integer.parseInt(id)), HttpStatus.OK);
     }
 
 }

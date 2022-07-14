@@ -16,8 +16,7 @@ public class ShopService {
     ShopMapper shopMapper;
 
     public ShopModel createShop(ShopModel shop) {
-        return this.shopMapper.createShop(shop) ? shop //ResponseEntity.ok().body("created")
-                : null; //ResponseEntity.badRequest().body("failed");
+        return this.shopMapper.createShop(shop) ? shop : null;
     }
 
     public List<ShopModel> getAllShop() {

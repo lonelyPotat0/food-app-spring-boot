@@ -10,17 +10,17 @@ import org.apache.ibatis.annotations.Mapper;
 public interface MenuMapper {
     boolean createMenu(@Valid MenuModel menu);
 
-    List<Object> getAllMenu(@Valid Pagination page);
+    List<MenuModel> getAllMenu(@Valid Pagination page);
 
-    Object getMenu(Integer id);
+    MenuModel getMenu(Integer id);
 
-    List<Object> getMenuByShopId(@Valid Pagination page);
+    List<MenuModel> getMenuByShopId(@Valid Pagination page);
 
     boolean updateMenu(MenuModel menu);
 
     boolean deleteMenu(Integer id);
 
-    Integer countMenuById(Integer shopId);
+    Integer countMenuByShopId(Integer shopId);
 
     Integer countMenuByName(String name);
 }
