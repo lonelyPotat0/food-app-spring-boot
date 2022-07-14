@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 // import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,26 +34,38 @@ public class CategoryController {
 
     @PostMapping("/create")
     public ResponseEntity<?> createCategory(@RequestBody CategoryModel categoryModel) {
-        return this.categoryrService.createCategory(categoryModel);
+        if (this.categoryrService.existByName(categoryModel)) {
+            return ResponseEntity.badRequest().body("category already exist");
+        }
+        CategoryModel category = this.categoryrService.createCategory(categoryModel);
+        return category != null
+                ? new ResponseEntity<>(category, HttpStatus.CREATED)
+                : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping()
-    public List<Object> getAllCategory() {
+    public List<CategoryModel> getAllCategory() {
         return this.categoryrService.getAllCategory();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getCategory(@PathVariable("id") String id) {
-        return this.categoryrService.getCategory(Integer.parseInt(id));
+    public ResponseEntity<CategoryModel> getCategory(@PathVariable("id") String id) {
+        return ResponseEntity.ok().body(this.categoryrService.getCategory(Integer.parseInt(id)));
     }
 
     @PutMapping()
     public ResponseEntity<?> updateCategory(@RequestBody CategoryModel categoryModel) {
-        return this.categoryrService.updateCategory(categoryModel);
+        if (this.categoryrService.existByName(categoryModel)) {
+            return ResponseEntity.badRequest().body("category already exist");
+        }
+        CategoryModel category = this.categoryrService.updateCategory(categoryModel);
+        return category != null
+                ? new ResponseEntity<>(category, HttpStatus.OK)
+                : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable("id") String id) {
-        return this.categoryrService.deleteCategory(Integer.parseInt(id));
+    public ResponseEntity<Boolean> deleteCategory(@PathVariable("id") String id) {
+        return ResponseEntity.ok().body(this.categoryrService.deleteCategory(Integer.parseInt(id)));
     }
 }

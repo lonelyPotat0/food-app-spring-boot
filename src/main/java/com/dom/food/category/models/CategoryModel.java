@@ -6,12 +6,24 @@ public class CategoryModel {
     private String createAt;
     private String updateAt;
 
+
+    public CategoryModel() {
+    }
+
+    public CategoryModel(Integer categoryId, String categoryName, String createAt, String updateAt) {
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
+        this.createAt = createAt;
+        this.updateAt = updateAt;
+    }
+
     public Integer getCategoryId() {
         return this.categoryId;
     }
 
-    public void setCategoryId(Integer categoryId) {
+    public CategoryModel setCategoryId(Integer categoryId) {
         this.categoryId = categoryId;
+        return this;
     }
 
     public String getCategoryName() {
@@ -21,14 +33,6 @@ public class CategoryModel {
     public void setCategoryName(String categoryName) {
         this.categoryName = categoryName;
     }
-
-    // public String getDetail() {
-    // return this.detail;
-    // }
-
-    // public void setDetail(String detail) {
-    // this.detail = detail;
-    // }
 
     public String getCreateAt() {
         return this.createAt;
@@ -46,4 +50,16 @@ public class CategoryModel {
         this.updateAt = updateAt;
     }
 
+
+    @Override
+    public String toString() {
+        return "{" +
+            " categoryId='" + getCategoryId() + "'" +
+            ", categoryName='" + getCategoryName() + "'" +
+            ", createAt='" + getCreateAt() + "'" +
+            ", updateAt='" + getUpdateAt() + "'" +
+            "}";
+    }
+
+    
 }

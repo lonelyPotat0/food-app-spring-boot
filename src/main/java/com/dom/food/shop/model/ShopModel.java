@@ -11,7 +11,7 @@ public class ShopModel {
     @NotBlank
     private String phone;
     @Size(min = 1)
-    private String userId;
+    private Integer userId;
     private String createAt;
     private String updateAt;
     private String name;
@@ -19,68 +19,114 @@ public class ShopModel {
     @NotBlank
     private String email;
 
+
+    public ShopModel() {
+    }
+
+    public ShopModel(Integer shopId, String address, String phone, Integer userId, String name, String email) {
+        this.shopId = shopId;
+        this.address = address;
+        this.phone = phone;
+        this.userId = userId;
+        this.name = name;
+        this.email = email;
+    }
+
+    // public ShopModel(Integer shopId, String address, String phone , String name) {
+    //     this.shopId = shopId;
+    //     this.address = address;
+    //     this.phone = phone;
+    //     this.name = name;
+    // }
+    
+
+
+
     public String getEmail() {
         return this.email;
     }
 
-    public void setEmail(String email) {
+    public ShopModel setEmail(String email) {
         this.email = email;
+        return this;
     }
 
     public String getName() {
         return this.name;
     }
 
-    public void setName(String name) {
+    public ShopModel setName(String name) {
         this.name = name;
+        return this;
     };
 
     public Integer getShopId() {
         return this.shopId;
     }
 
-    public void setShopId(Integer shopId) {
+    public ShopModel setShopId(Integer shopId) {
         this.shopId = shopId;
+        return this;
     }
 
     public String getAddress() {
         return this.address;
     }
 
-    public void setAddress(String address) {
+    public ShopModel setAddress(String address) {
         this.address = address;
+        return this;
     }
 
     public String getPhone() {
         return this.phone;
     }
 
-    public void setPhone(String phone) {
+    public ShopModel setPhone(String phone) {
         this.phone = phone;
+        return this;
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return this.userId;
     }
 
-    public void setUserId(String userId) {
+    public ShopModel setUserId(Integer userId) {
         this.userId = userId;
+        return this;
     }
 
     public String getCreateAt() {
         return this.createAt;
     }
 
-    public void setCreateAt(String createAt) {
+    public ShopModel setCreateAt(String createAt) {
         this.createAt = createAt;
+        return this;
     }
 
     public String getUpdateAt() {
         return this.updateAt;
     }
 
-    public void setUpdateAt(String updateAt) {
+    public ShopModel setUpdateAt(String updateAt) {
         this.updateAt = updateAt;
+        return this;
     }
+
+    @Override
+    public String toString() {
+        return "{" +
+            " shopId='" + getShopId() + "'" +
+            ", address='" + getAddress() + "'" +
+            ", phone='" + getPhone() + "'" +
+            ", userId='" + getUserId() + "'" +
+            ", createAt='" + getCreateAt() + "'" +
+            ", updateAt='" + getUpdateAt() + "'" +
+            ", name='" + getName() + "'" +
+            ", email='" + getEmail() + "'" +
+            "}";
+    }
+
 
 }

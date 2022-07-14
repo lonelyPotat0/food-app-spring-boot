@@ -15,7 +15,7 @@ public interface ShopMapper {
 
     boolean deleteShop(Integer id);
 
-    List<Object> getAllShop();
+    List<ShopModel> getAllShop();
 
     Object getShop(Integer id);
 }

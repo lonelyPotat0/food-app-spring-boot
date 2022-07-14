@@ -20,41 +20,41 @@ public class CategoryService {
 
     public static final String deleteCategory = null;
 
-    public ResponseEntity<?> createCategory(CategoryModel categoryModel) {
+    public CategoryModel createCategory(CategoryModel categoryModel) {
         categoryModel.setCategoryName(categoryModel.getCategoryName().toLowerCase());
 
-        if (this.existByName(categoryModel)) {
-            return ResponseEntity.badRequest().body("category already exist");
-        }
-        return this.categoryMapper.createCategory(categoryModel)
-                ? new ResponseEntity<String>("created", HttpStatus.CREATED)
-                : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
+//        if (this.existByName(categoryModel)) {
+//            return ResponseEntity.badRequest().body("category already exist");
+//        }
+        return this.categoryMapper.createCategory(categoryModel) ? categoryModel : null;
+//                ? new ResponseEntity<String>("created", HttpStatus.CREATED)
+//                : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
     }
 
-    public ResponseEntity<?> getCategory(Integer id) {
-        return ResponseEntity.ok().body(this.categoryMapper.getCategory(id));
+    public CategoryModel getCategory(Integer id) {
+        return this.categoryMapper.getCategory(id);
     }
 
-    public List<Object> getAllCategory() {
+    public List<CategoryModel> getAllCategory() {
         return this.categoryMapper.getAllCategory();
     }
 
-    public ResponseEntity<?> updateCategory(CategoryModel categoryModel) {
-        if (this.existByName(categoryModel)) {
-            return ResponseEntity.badRequest().body("category already exist");
-        }
-        return this.categoryMapper.updateCategory(categoryModel)
-                ? new ResponseEntity<String>("updated", HttpStatus.CREATED)
-                : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
+    public CategoryModel updateCategory(CategoryModel categoryModel) {
+//        if (this.existByName(categoryModel)) {
+//            return ResponseEntity.badRequest().body("category already exist");
+//        }
+        return this.categoryMapper.updateCategory(categoryModel) ? categoryModel : null;
+//                ? new ResponseEntity<String>("updated", HttpStatus.CREATED)
+//                : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
     }
 
-    public ResponseEntity<?> deleteCategory(Integer id) {
-        return this.categoryMapper.deleteCategory(id)
-                ? new ResponseEntity<String>("deleted", HttpStatus.CREATED)
-                : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
+    public boolean deleteCategory(Integer id) {
+        return this.categoryMapper.deleteCategory(id);
+//                ? new ResponseEntity<String>("deleted", HttpStatus.CREATED)
+//                : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
     }
 
-    private boolean existByName(CategoryModel categoryModel) {
+    public boolean existByName(CategoryModel categoryModel) {
         return this.categoryMapper.existsByName(categoryModel);
     }
 

@@ -5,6 +5,7 @@ import com.dom.food.user.services.UserService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,7 +14,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException;
+
+
 
 @RestController
 @RequestMapping("/user")
@@ -23,38 +25,33 @@ public class UserController {
     private UserService userService;
 
     @PostMapping("create")
-    public UserModel createUser(@Valid @RequestBody UserModel userModel) {
+    public ResponseEntity<?> createUser(@Valid @RequestBody UserModel userModel) {
         if (this.userService.isExistByPhoneNumber(userModel)) {
-            this.Exception(HttpStatus.BAD_REQUEST, "phone number already taken");
+            return ResponseEntity.badRequest().body( "phone number already taken");
         }
         if (this.userService.existsByEmail(userModel.getEmail())) {
-            this.Exception(HttpStatus.BAD_REQUEST, "email already taken");
+            return ResponseEntity.badRequest().body( "email already taken");
         }
-        UserModel user = this.userService.createUser(userModel);
-        return user != null ? user : this.Exception(HttpStatus.BAD_REQUEST, "fail");
+        return new ResponseEntity<UserModel>(this.userService.createUser(userModel), HttpStatus.CREATED); //.body(); //user != null ? user : this.Exception(HttpStatus.BAD_REQUEST, "fail");
     }
 
     @GetMapping("/{id}")
-    public UserModel getUserInformation(@PathVariable("id") String id) {
-        return this.userService.getUserInformation(Integer.parseInt(id));
+    public ResponseEntity<UserModel> getUserInformation(@PathVariable("id") String id) {
+        return ResponseEntity.ok().body(this.userService.getUserInformation(Integer.parseInt(id)));
     }
 
     @PutMapping()
-    public UserModel updateUser(@Valid @RequestBody UserModel userModel) {
+    public ResponseEntity<UserModel> updateUser(@Valid @RequestBody UserModel userModel) {
         if (this.userService.isExistByPhoneNumber(userModel)) {
-            this.Exception(HttpStatus.BAD_REQUEST, "phone number already taken");
+            ResponseEntity.badRequest().body( "phone number already taken");
         }
-        UserModel user = this.userService.updateUser(userModel);
-        return user != null ? user : this.Exception(HttpStatus.BAD_REQUEST, "fail");
+        return ResponseEntity.ok().body(this.userService.updateUser(userModel)); //user != null ? user : this.Exception(HttpStatus.BAD_REQUEST, "fail");
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteUser(@PathVariable("id") String id) {
-        return this.userService.deleteUser(Integer.parseInt(id));
+    public ResponseEntity<Boolean> deleteUser(@PathVariable("id") String id) {
+        return ResponseEntity.ok().body(this.userService.deleteUser(Integer.parseInt(id)));
     }
 
-    private UserModel Exception (HttpStatus status, String message)  {
-        throw new HttpClientErrorException( status , message);
-    }
 
 }

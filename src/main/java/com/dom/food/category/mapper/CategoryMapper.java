@@ -11,9 +11,9 @@ public interface CategoryMapper {
 
     boolean createCategory(CategoryModel category);
 
-    Object getCategory(Integer id);
+    CategoryModel getCategory(Integer id);
 
-    List<Object> getAllCategory();
+    List<CategoryModel> getAllCategory();
 
     boolean updateCategory(CategoryModel category);
 
