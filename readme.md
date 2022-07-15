@@ -405,13 +405,16 @@ body
 	"deliveryAddress" : "phnom penh"
 }
 ```
-#### get order list by shop
+#### get order list
 
 method: GET
 
+```
+parameters: userId or shopId
+```
 path
 ```
- /order/{shopId}
+ /order
 ```
 
 #### confirm delivered
@@ -493,8 +496,6 @@ path
 #### delete review
 
 method: DELETE
-
-role: ROLE_DELIVERY
 
 path
 ```
