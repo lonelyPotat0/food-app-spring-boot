@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "3486b44a-275d-4cc0-99d7-f4ae4b20d9b7",
-		"name": "Spring Boot",
+		"_postman_id": "9e6816b8-9ae9-4637-b5db-233dc7a7eda0",
+		"name": "Spring Boot assignment complete",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "18088324"
 	},
@@ -9,6 +9,794 @@
 		{
 			"name": "Spring boot assignment",
 			"item": [
+				{
+					"name": "login",
+					"item": [
+						{
+							"name": "login",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"email\": \"admin\",\n\t\"password\": \"password\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/api/login",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"api",
+										"login"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "dom@mail.com",
+											"disabled": true
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "user",
+					"item": [
+						{
+							"name": "create user",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"fullname\": \"dom\",\n    \"phone\": \"092569065\",\n    \"password\": \"123456\",\n    \"role\": \"ROLE_CUSTOMER\",\n    \"email\": \"aom1@mail.com\",\n    \"address\": \"phnom penh\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/user/create",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"user",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get user info",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/user/1",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"user",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"phone\": \"01244556\",\n    \"fullname\": \"yim dom\",\n    \"userId\": 1\n}"
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/user",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"user"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update password",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"oldPassword\": \"123456\",\n    \"newPassword\": \"1234567\",\n    \"userId\": 20\n}"
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/user/password",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"user",
+										"password"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete user",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/user/16",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"user",
+										"16"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "shop",
+					"item": [
+						{
+							"name": "create shop",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"ly shop\",\n    \"address\": \"pp\",\n    \"phone\": \"092123123\",\n    \"userId\": 1,\n    \"email\": \"dom@gmail.com\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/shop/create",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"shop",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get shop",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/shop",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"shop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get shop by id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/shop/5",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"shop",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update shop",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"shopId\" : 8,\n    \"phone\": \"09123213\",\n    \"name\": \"shop asd\",\n    \"address\": \"kampong cham\",\n    \"userId\": 1,\n    \"email\": \"potato@mail.com\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/shop",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"shop"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete shop",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/shop/9",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"shop",
+										"9"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "category",
+					"item": [
+						{
+							"name": "create category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"categoryName\": \"cold\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/category/create",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"category",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{url}}:{{port}}/category",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"category"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get category with id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/category/604",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"category",
+										"604"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"categoryName\": \"cold\",\n    \"categoryId\": \"604\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/category",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"category"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete category",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/category/603",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"category",
+										"603"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "menu",
+					"item": [
+						{
+							"name": "create menu",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"hot nugget\",\n    \"image\": \"\",\n    \"shopId\": 2,\n    \"categoryId\": 1,\n    \"price\": 1.1\n}"
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/menu/create",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"menu",
+										"create"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get menu",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/menu?name=nugget&page=2&perPage=2",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"menu"
+									],
+									"query": [
+										{
+											"key": "name",
+											"value": "nugget"
+										},
+										{
+											"key": "page",
+											"value": "2"
+										},
+										{
+											"key": "perPage",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get menu by Id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/menu/4",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"menu",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get menu by shop id",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "page",
+										"value": "2",
+										"disabled": true
+									},
+									{
+										"key": "perPage",
+										"value": "1",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{url}}:{{port}}/menu/shop/2?page=1&perPage=2",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"menu",
+										"shop",
+										"2"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "perPage",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update menu",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"name\": \"cold nugget\",\n    \"categoryId\": 1,\n    \"menuId\": 3,\n    \"shopId\": 1,\n    \"image\": \"\"\n}"
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/menu",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"menu"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete menu",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "page",
+										"value": "2"
+									},
+									{
+										"key": "perPage",
+										"value": "1"
+									}
+								],
+								"url": {
+									"raw": "{{url}}:{{port}}/menu/36",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"menu",
+										"36"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
 				{
 					"name": "order",
 					"item": [
@@ -34,7 +822,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"userId\" : 2,\n\t\"menuId\" : 3,\n\t\"quantity\": 2\n}"
+									"raw": "{\n\t\"userId\" : 1,\n\t\"menuId\" : 1,\n\t\"quantity\": 2\n}"
 								},
 								"url": {
 									"raw": "{{url}}:{{port}}/order/cart",
@@ -53,6 +841,16 @@
 						{
 							"name": "get all items in cart",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -71,27 +869,18 @@
 							"response": []
 						},
 						{
-							"name": "get order list",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}:{{port}}/order/1",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"order",
-										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "update cart",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "PUT",
 								"header": [
 									{
@@ -101,7 +890,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"userId\" : 1,\n\t\"cartItemId\": 1,\n\t\"quantity\": 20\n}"
+									"raw": "{\n\t\"userId\" : 1,\n\t\"cartItemId\": 17,\n\t\"quantity\": 20\n}"
 								},
 								"url": {
 									"raw": "{{url}}:{{port}}/order/cart",
@@ -120,6 +909,16 @@
 						{
 							"name": "remove item from cart",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [
 									{
@@ -129,7 +928,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"userId\" : 1,\n\t\"cartItemId\": 1\n}"
+									"raw": "{\n\t\"userId\" : 1,\n\t\"cartItemId\": 19\n}"
 								},
 								"url": {
 									"raw": "{{url}}:{{port}}/order/cart",
@@ -148,6 +947,16 @@
 						{
 							"name": "checkout",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [
 									{
@@ -157,7 +966,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"customerId\" : 2,\n\t\"deliveryAddress\" : \"phnom penh\"\n}"
+									"raw": "{\n\t\"customerId\" : 1,\n\t\"deliveryAddress\" : \"phnom penh\"\n}"
 								},
 								"url": {
 									"raw": "{{url}}:{{port}}/order/cart/checkout",
@@ -175,8 +984,56 @@
 							"response": []
 						},
 						{
+							"name": "get order list",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}:{{port}}/order?userId=1&shopId=1",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"order"
+									],
+									"query": [
+										{
+											"key": "userId",
+											"value": "1"
+										},
+										{
+											"key": "shopId",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "confirm delivered",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [],
 								"url": {
@@ -197,6 +1054,16 @@
 						{
 							"name": "create payment",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [
 									{
@@ -230,6 +1097,16 @@
 						{
 							"name": "create review",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "POST",
 								"header": [
 									{
@@ -256,8 +1133,54 @@
 							"response": []
 						},
 						{
+							"name": "get all review for menu",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{url}}:{{port}}/review/1",
+									"host": [
+										"{{url}}"
+									],
+									"port": "{{port}}",
+									"path": [
+										"review",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "update review",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "PUT",
 								"header": [
 									{
@@ -283,27 +1206,18 @@
 							"response": []
 						},
 						{
-							"name": "get all review for menu",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}:{{port}}/review/1",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"review",
-										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "delete review",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
 								"method": "DELETE",
 								"header": [
 									{
@@ -313,7 +1227,7 @@
 								],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n\t\"reviewId\": 2,\n\t\"customerId\": 1\n}"
+									"raw": "{\n\t\"reviewId\": 6,\n\t\"customerId\": 1\n}"
 								},
 								"url": {
 									"raw": "{{url}}:{{port}}/review",
@@ -323,609 +1237,6 @@
 									"port": "{{port}}",
 									"path": [
 										"review"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "login",
-					"item": [
-						{
-							"name": "login",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n\t\"email\": \"admin\",\n\t\"password\": \"password\"\n}"
-								},
-								"url": {
-									"raw": "{{url}}:{{port}}/api/login?email=dom@mail.com&password=123456",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"api",
-										"login"
-									],
-									"query": [
-										{
-											"key": "email",
-											"value": "dom@mail.com"
-										},
-										{
-											"key": "password",
-											"value": "123456"
-										}
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "user",
-					"item": [
-						{
-							"name": "create user",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"fullname\": \"dom\",\n    \"phone\": \"092131324\",\n    \"password\": \"123456\",\n    \"role\": \"ROLE_CUSTOMER\",\n\t\t\"email\": \"dom@qmail.com\",\n\t\t\"address\": \"phnom penh\"\n}"
-								},
-								"url": {
-									"raw": "{{url}}:{{port}}/user/create",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"user",
-										"create"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "update user",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"phone\": \"01244556\",\n    \"userId\": 2\n}"
-								},
-								"url": {
-									"raw": "{{url}}:{{port}}/user",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"user"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get user info",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}:{{port}}/user/2",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"user",
-										"2"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "delete user",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{url}}:{{port}}/user/2",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"user",
-										"2"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "customer",
-					"item": [
-						{
-							"name": "create customer",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \n}"
-								},
-								"url": {
-									"raw": "{{url}}:{{port}}/customer",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"customer"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "shop",
-					"item": [
-						{
-							"name": "create shop",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"dom shop\",\n    \"address\": \"pp\",\n    \"phone\": \"092123123\",\n    \"userId\": 2,\n\t\t\"email\": \"dom@gmail.com\"\n}"
-								},
-								"url": {
-									"raw": "{{url}}:{{port}}/shop/create",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"shop",
-										"create"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "update shop",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"shopId\" : 1,\n    \"phone\": \"09123213\"\n}"
-								},
-								"url": {
-									"raw": "{{url}}:{{port}}/shop",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"shop"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get shop",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}:{{port}}/shop",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"shop"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get shop by id",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}:{{port}}/shop/1",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"shop",
-										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "delete shop",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{url}}:{{port}}/shop/3",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"shop",
-										"3"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "category",
-					"item": [
-						{
-							"name": "create category",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"categoryName\": \"spicy\",\n    \"detail\": \"\"\n}"
-								},
-								"url": {
-									"raw": "{{url}}:{{port}}/category/create",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"category",
-										"create"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "update category",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"categoryName\": \"cold\",\n    \"categoryId\": \"1\"\n}"
-								},
-								"url": {
-									"raw": "{{url}}:{{port}}/category",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"category"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get all category",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"url": {
-									"raw": "{{url}}:{{port}}/category",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"category"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get category with id",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}:{{port}}/category/1",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"category",
-										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "delete category",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{url}}:{{port}}/category/1",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"category",
-										"1"
-									]
-								}
-							},
-							"response": []
-						}
-					]
-				},
-				{
-					"name": "menu",
-					"item": [
-						{
-							"name": "create menu",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"hot nugget\",\n    \"image\": \"\",\n    \"shopId\": 2,\n    \"categoryId\": 1,\n    \"price\": 1.1\n}"
-								},
-								"url": {
-									"raw": "{{url}}:{{port}}/menu/create",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"menu",
-										"create"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "update menu",
-							"request": {
-								"method": "PUT",
-								"header": [
-									{
-										"key": "Content-Type",
-										"value": "application/json"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "{\n    \"name\": \"cold nugget\",\n    \"categoryId\": 1,\n    \"menuId\": 3,\n    \"shopId\": 1\n}"
-								},
-								"url": {
-									"raw": "{{url}}:{{port}}/menu",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"menu"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "test",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}:{{port}}/menu/test?id=1",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"menu",
-										"test"
-									],
-									"query": [
-										{
-											"key": "id",
-											"value": "1"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get menu",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}:{{port}}/menu?name=nugget&page=2&perPage=2",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"menu"
-									],
-									"query": [
-										{
-											"key": "name",
-											"value": "nugget"
-										},
-										{
-											"key": "page",
-											"value": "2"
-										},
-										{
-											"key": "perPage",
-											"value": "2"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get menu by Id",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{url}}:{{port}}/menu/15",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"menu",
-										"15"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "get menu by shop id",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "page",
-										"value": "2"
-									},
-									{
-										"key": "perPage",
-										"value": "1"
-									}
-								],
-								"url": {
-									"raw": "{{url}}:{{port}}/menu/shop/2",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"menu",
-										"shop",
-										"2"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "delete menu",
-							"request": {
-								"method": "DELETE",
-								"header": [
-									{
-										"key": "page",
-										"value": "2"
-									},
-									{
-										"key": "perPage",
-										"value": "1"
-									}
-								],
-								"url": {
-									"raw": "{{url}}:{{port}}/menu/2",
-									"host": [
-										"{{url}}"
-									],
-									"port": "{{port}}",
-									"path": [
-										"menu",
-										"2"
 									]
 								}
 							},
