@@ -112,10 +112,30 @@ body
 ```json
 {
     "phone": "01244556",
+	"fullname": "yim dom",
     "userId": 2
     //limited to only phone for now
 }
 ```
+
+#### update password 
+
+method: PUT
+
+path
+```
+ /user/password
+```
+body
+
+```json
+{
+    "oldPassword": "123456",
+    "newPassword": "1234567",
+    "userId": 20
+}
+```
+
 #### Get user info 
 
 method: GET
@@ -168,6 +188,7 @@ body
 }
 ```
 
+
 #### get all shop
 
 method: GET
@@ -188,11 +209,17 @@ path
 
 #### delete shop
 
-method: GET
+method: DELETE
 
 path
 ```
  /shop/{shopId}
+```
+```json
+{
+    "shopId": 1,
+    "userId": 1
+}
 ```
 
 #### create category
@@ -203,6 +230,7 @@ path
 ```
  /category/create
 ```
+
 body
 ```json
 {
@@ -219,6 +247,7 @@ path
  /category
 ```
 body
+
 ```json
 {
     "categoryName": "cold",

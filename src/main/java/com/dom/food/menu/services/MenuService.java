@@ -4,8 +4,10 @@ import com.dom.food.menu.mapper.MenuMapper;
 import com.dom.food.menu.models.MenuModel;
 import com.dom.food.menu.models.MenuResult;
 import com.dom.food.ultilities.Pagination;
+import org.apache.http.client.HttpResponseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 @Service
 public class MenuService {
@@ -13,8 +15,11 @@ public class MenuService {
     @Autowired
     MenuMapper menuMapper;
 
-    public MenuModel createMenu(MenuModel menu) {
-        return this.menuMapper.createMenu(menu) ? menu : null;
+    public MenuModel createMenu(MenuModel menu) throws HttpResponseException {
+        if (this.menuMapper.createMenu(menu)) {
+            return menu;
+        }
+        throw new HttpResponseException(400, "fail");
     }
 
     public MenuResult getAllMenu(Integer page, Integer perPage, String name) {
@@ -37,16 +42,18 @@ public class MenuService {
         return new MenuResult().setMenus(this.menuMapper.getMenuByShopId(pageInfo)).setPageInfo(pageInfo);
     }
 
-    public MenuModel updateMenu(MenuModel menu) {
-        return this.menuMapper.updateMenu(menu) ? menu : null ;
-        // ResponseEntity.ok().body("updated")
-        //         : ResponseEntity.badRequest().body("failed");
+    public MenuModel updateMenu(MenuModel menu) throws HttpResponseException {
+        if (this.menuMapper.updateMenu(menu)) {
+            return menu;
+        }
+        throw new HttpResponseException(400, "fail");
     }
 
-    public Boolean deleteMenu(Integer id) {
-        return this.menuMapper.deleteMenu(id);
-        // ? ResponseEntity.ok().body("deleted")
-        //         : ResponseEntity.badRequest().body("failed");
+    public Boolean deleteMenu(Integer id) throws HttpResponseException {
+        if (this.menuMapper.deleteMenu(id)) {
+            return true;
+        }
+        throw new HttpResponseException(400, "fail");
     }
 
 

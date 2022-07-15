@@ -5,6 +5,7 @@ import com.dom.food.menu.models.MenuResult;
 import com.dom.food.menu.services.MenuService;
 import com.google.common.util.concurrent.RateLimiter;
 import javax.validation.Valid;
+import org.apache.http.client.HttpResponseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 
+
 @RestController
 @RequestMapping("/menu")
 public class MenuController {
@@ -32,11 +34,8 @@ public class MenuController {
     RateLimiter rateLimiter;
 
     @PostMapping("create")
-    public ResponseEntity<?> createMenu(@Valid @RequestBody MenuModel menuModel) {
-        MenuModel menu = this.menuService.createMenu(menuModel);
-        return menu != null ? 
-            new ResponseEntity<>(this.menuService.createMenu(menu), HttpStatus.CREATED)
-            : new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> createMenu(@Valid @RequestBody MenuModel menuModel) throws HttpResponseException {
+        return new ResponseEntity<>(this.menuService.createMenu(menuModel), HttpStatus.CREATED);
     }
 
     @GetMapping()
@@ -65,15 +64,12 @@ public class MenuController {
     }
    
     @PutMapping()
-    public ResponseEntity<?> updateMenu(@RequestBody MenuModel menuModel) {
-        MenuModel menu = this.menuService.updateMenu(menuModel);
-        return menu != null ? 
-            new ResponseEntity<MenuModel>(this.menuService.createMenu(menu), HttpStatus.OK)
-            : new ResponseEntity<String>("fail", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> updateMenu(@RequestBody MenuModel menuModel) throws HttpResponseException {
+        return new ResponseEntity<MenuModel>(this.menuService.updateMenu(menuModel), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteMenu(@PathVariable("id") String id) {
+    public ResponseEntity<Boolean> deleteMenu(@PathVariable("id") String id) throws HttpResponseException, NumberFormatException {
         return new ResponseEntity<Boolean>(this.menuService.deleteMenu(Integer.parseInt(id)), HttpStatus.OK);
     }
 

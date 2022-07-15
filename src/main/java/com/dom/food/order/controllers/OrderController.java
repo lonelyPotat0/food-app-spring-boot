@@ -32,9 +32,8 @@ public class OrderController {
     OrderService orderService;
 
     @PostMapping("/cart")
-    public ResponseEntity<?> addToCart(@Valid @RequestBody CartItemModel cart) {
-        CartItemModel createdCartItem = this.orderService.addToCart(cart);
-        return createdCartItem != null ? ResponseEntity.created(null).body(createdCartItem) : ResponseEntity.badRequest().body("fail");
+    public ResponseEntity<?> addToCart(@Valid @RequestBody CartItemModel cart) throws HttpResponseException {
+        return ResponseEntity.created(null).body(this.orderService.addToCart(cart));
     }
 
     @GetMapping("/cart/{userId}")
@@ -43,21 +42,18 @@ public class OrderController {
     }
 
     @PutMapping("/cart")
-    public ResponseEntity<?> updateCart(@RequestBody CartItemModel cart) {
-        CartItemModel updatedCartItem = this.orderService.updateCart(cart);
-        return updatedCartItem != null ? ResponseEntity.ok().body(updatedCartItem) : ResponseEntity.badRequest().body("fail");
+    public ResponseEntity<?> updateCart(@RequestBody CartItemModel cart) throws HttpResponseException {
+        return ResponseEntity.ok().body(this.orderService.updateCart(cart));
     }
 
     @DeleteMapping("/cart")
-    public ResponseEntity<?> removeFromCart(@RequestBody CartItemModel cart) {
-        return this.orderService.removeFromCart(cart)  ? ResponseEntity.ok().body("deleted" )
-                                                        : ResponseEntity.badRequest().body("failed");
+    public ResponseEntity<?> removeFromCart(@RequestBody CartItemModel cart) throws HttpResponseException {
+        return ResponseEntity.ok().body(this.orderService.removeFromCart(cart));
     }
 
     @PostMapping("/cart/checkout")
     public ResponseEntity<?> checkOut(@Valid @RequestBody OrderModel order) throws HttpResponseException {
-        return this.orderService.checkOutCart(order)  ? ResponseEntity.created(null).body("checked out" )
-                                                        : ResponseEntity.badRequest().body("failed");
+        return ResponseEntity.created(null).body(this.orderService.checkOutCart(order));
     }
 
     @GetMapping()
@@ -66,17 +62,13 @@ public class OrderController {
     }
 
     @PostMapping("/confirm-payment")
-    public ResponseEntity<?> removeFromCart(@Valid @RequestBody PaymentModel payment) {
-        return this.orderService.confirmPayment(payment) 
-                            ? ResponseEntity.created(null).body("payment confirmed" )
-                            : ResponseEntity.badRequest().body("failed");
+    public ResponseEntity<?> removeFromCart(@Valid @RequestBody PaymentModel payment) throws HttpResponseException {
+        return ResponseEntity.created(null).body(this.orderService.confirmPayment(payment)); 
     }
 
     @PostMapping("/confirm-delivered/{orderId}")
-    public ResponseEntity<?> confirmDelivered(@PathVariable("orderId") String orderId) {
-        return this.orderService.confirmDelivered(Integer.parseInt(orderId)) 
-                            ? ResponseEntity.created(null).body("dilivery confirmed" )
-                            : ResponseEntity.badRequest().body("failed");
+    public ResponseEntity<?> confirmDelivered(@PathVariable("orderId") String orderId) throws HttpResponseException, NumberFormatException {
+        return ResponseEntity.created(null).body(this.orderService.confirmDelivered(Integer.parseInt(orderId))); 
     }
 
 }

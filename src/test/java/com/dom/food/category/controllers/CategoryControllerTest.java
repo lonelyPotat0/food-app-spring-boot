@@ -6,6 +6,7 @@ import com.dom.food.category.services.CategoryService;
 import com.dom.food.shop.model.ShopModel;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.Test;
+import org.mockito.Answers;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -42,7 +43,6 @@ class CategoryControllerTest {
     void createCategory() throws Exception {
         CategoryModel category = new CategoryModel();
         category.setCategoryName("cold");
-        Mockito.when(categoryService.existByName(category)).thenReturn(false);
         Mockito.when(categoryService.createCategory(category)).thenReturn(category);
         System.out.println(category);
         String content = gson.toJson(category);
@@ -52,8 +52,7 @@ class CategoryControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .content(content)
                 .characterEncoding("utf-8"))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("categoryName").value("cold"));
+                .andExpect(status().isCreated());
     }
 
     @Test
@@ -84,8 +83,7 @@ class CategoryControllerTest {
     @Test
     void updateCategory() throws Exception {
         CategoryModel category = new CategoryModel(1, "cold", "2022-07-10T22:03:06.000+00:00" ,  "2022-07-11T05:03:06");
-        Mockito.when(categoryService.getCategory(1)).thenReturn(category);
-        Mockito.when(categoryService.existByName(category)).thenReturn(false);
+        Mockito.when(categoryService.updateCategory(category)).thenReturn(category);
         String content = gson.toJson(category);
         System.out.println(content);
         mvc.perform(put("/category")
@@ -93,8 +91,7 @@ class CategoryControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .content(content)
                 .characterEncoding("utf-8"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("categoryName").value("cold"));
+                .andExpect(status().isOk());
     }
 
     @Test

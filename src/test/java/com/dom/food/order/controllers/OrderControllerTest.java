@@ -55,7 +55,7 @@ class OrderControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .content(content)
                 .characterEncoding("utf-8"))
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isCreated());
     }
 
     @Test

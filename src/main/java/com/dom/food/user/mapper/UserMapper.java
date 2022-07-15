@@ -1,8 +1,9 @@
 package com.dom.food.user.mapper;
 
-// import com.dom.food.user.models.IUserModel;
+import com.dom.food.user.models.ChangePasswordRequest;
 import com.dom.food.user.models.UserModel;
 import org.apache.ibatis.annotations.Mapper;
+// import com.dom.food.user.models.IUserModel;
 
 @Mapper
 public interface UserMapper {
@@ -22,4 +23,6 @@ public interface UserMapper {
     UserModel findByEmail(String email);
 
     boolean existsByEmail(String email);
+
+    boolean updatePassword(ChangePasswordRequest password);
 }

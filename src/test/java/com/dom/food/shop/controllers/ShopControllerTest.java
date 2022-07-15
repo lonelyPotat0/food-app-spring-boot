@@ -90,16 +90,20 @@ class ShopControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .content(content)
                 .characterEncoding("utf-8"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("name").value("shop1"));
+                .andExpect(status().isOk());
     }
 
     @Test
     void deleteShop() throws Exception {
-        Mockito.when(shopService.deleteShop(1)).thenReturn(true);
-        mvc.perform(delete("/shop/1")
+        ShopModel shop = new ShopModel();
+        shop.setShopId(1).setUserId(1);
+        Mockito.when(shopService.deleteShop(shop)).thenReturn(true);
+        String content = gson.toJson(shop);
+        mvc.perform(delete("/shop")
                 .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON))
+                .accept(MediaType.APPLICATION_JSON)
+                .content(content)
+                .characterEncoding("utf-8"))
                 .andExpect(status().isOk());
     }
 }

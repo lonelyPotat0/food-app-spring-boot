@@ -20,7 +20,7 @@ public class OrderService {
     @Autowired
     OrderMapper orderMapper;
 
-    public CartItemModel addToCart(CartItemModel cart) {
+    public CartItemModel addToCart(CartItemModel cart) throws HttpResponseException {
 
         CartItemModel checkCartItem = this.orderMapper.checkCartItemExists(cart);
 
@@ -29,49 +29,57 @@ public class OrderService {
             cart.setCartItemId(checkCartItem.getCartItemId());
             return this.updateCart(cart);
         }
-
-        return this.orderMapper.addToCart(cart) ? cart : null;
-                // ? new ResponseEntity<String>("created", HttpStatus.CREATED)
-                // : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
+        if (this.orderMapper.addToCart(cart)) {
+            return cart;
+        } 
+        throw new HttpResponseException(400, "failed");
     }
 
     public List<CartItemModel> getCartItems(Integer userId) {
         return this.orderMapper.getCartItems(userId);
     }
 
-    public CartItemModel updateCart(CartItemModel cart) {
-
-        return this.orderMapper.updateCart(cart) ? cart : null;
-                // ? new ResponseEntity<String>("updated", HttpStatus.OK)
-                // : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
+    public CartItemModel updateCart(CartItemModel cart) throws HttpResponseException {
+        // return this.orderMapper.updateCart(cart) ? cart : null;
+        if (this.orderMapper.updateCart(cart)) {
+            return cart;
+        }
+        throw new HttpResponseException(400, "failed");
     }
 
-    public boolean removeFromCart(CartItemModel cart) {
-        return this.orderMapper.removeFromCart(cart);
-                // ? new ResponseEntity<String>("deleted", HttpStatus.OK)
-                // : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
+    public boolean removeFromCart(CartItemModel cart) throws HttpResponseException {
+        if (this.orderMapper.removeFromCart(cart)) {
+            return true;
+        }
+        throw new HttpResponseException(400, "failed");
     }
 
     public boolean checkOutCart(OrderModel order) throws HttpResponseException {
-        return this.createOrder(order);
-                // ? new ResponseEntity<String>("checked out", HttpStatus.OK)
-                // : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
+        if (this.createOrder(order)) {
+            return true;
+        }
+        throw new HttpResponseException(400, "fail");
     }
 
     public List<OrdersModel> getOrderList(Integer shopId, Integer userId) {
         return this.orderMapper.getOrderList(shopId, userId);
     }
 
-    public boolean confirmPayment(PaymentModel payment) {
-        return this.orderMapper.createPayment(payment);
+    public boolean confirmPayment(PaymentModel payment) throws HttpResponseException {
+        if (this.orderMapper.createPayment(payment)) {
+            return true;
+        }
+        throw new HttpResponseException(400, "fail");
+        // return this.orderMapper.createPayment(payment);
                 // ? new ResponseEntity<String>("created", HttpStatus.CREATED)
                 // : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
     }
 
-    public boolean confirmDelivered(Integer orderId) {
-        return this.orderMapper.confirmDelivered(orderId);
-                // ? new ResponseEntity<String>("confirmed", HttpStatus.OK)
-                // : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
+    public boolean confirmDelivered(Integer orderId) throws HttpResponseException {
+        if (this.orderMapper.confirmDelivered(orderId)) {
+            return true;
+        }
+        throw new HttpResponseException(400, "fail");
     }
 
     private boolean createOrder(OrderModel order) throws HttpResponseException {

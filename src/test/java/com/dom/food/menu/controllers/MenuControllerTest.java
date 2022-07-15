@@ -55,8 +55,7 @@ class MenuControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .content(content)
                 .characterEncoding("utf-8"))
-                .andExpect(status().isCreated())
-                .andExpect(jsonPath("name").value("nugget"));
+                .andExpect(status().isCreated());
     }
 
     @Test
@@ -115,8 +114,7 @@ class MenuControllerTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .content(content)
                 .characterEncoding("utf-8"))
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("name").value("nugget"));
+                .andExpect(status().isOk());
     }
 
     @Test

@@ -1,5 +1,6 @@
 package com.dom.food.user.controllers;
 
+import com.dom.food.user.models.ChangePasswordRequest;
 import com.dom.food.user.models.ERole;
 import com.dom.food.user.models.UserModel;
 import com.dom.food.user.services.UserService;
@@ -39,8 +40,6 @@ class UserControllerTest {
         UserModel insertUser = new UserModel(null, "dom", "dddddddom@mail.com" , "0921115", "123456" , ERole.ROLE_CUSTOMER, "phnom penh", null, null);
         UserModel responseUser = new UserModel(1, "dom", "dddddddom@mail.com" , "0921115", "$2a$10$DbEnFQQUZG.vDbrwXhru..UTjjmGGu2oV2IqpWPU0d.m1EdzVN.0a" , ERole.ROLE_CUSTOMER, "phnom penh", null, null);
         Mockito.when(userService.createUser(insertUser)).thenReturn(responseUser);
-        Mockito.when(userService.isExistByPhoneNumber(insertUser)).thenReturn(false);
-        Mockito.when(userService.existsByEmail(insertUser.getEmail())).thenReturn(false);
         String content = gson.toJson(insertUser);
 
         mvc.perform(post("/user/create")
@@ -73,6 +72,21 @@ class UserControllerTest {
                 .content(content))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("fullname").value("yim dom"));
+    }
+
+    @Test
+    void updatePassword() throws Exception {
+        ChangePasswordRequest password = new ChangePasswordRequest();
+        password.setUserId(1);
+        password.setOldPassword("123456");
+        password.setNewPassword("1234567");
+        Mockito.when(this.userService.updatePassword(password)).thenReturn(true);
+        String content = gson.toJson(password);
+        mvc.perform(put("/user/password")
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content(content))
+                .andExpect(status().isOk());
     }
 
     @Test

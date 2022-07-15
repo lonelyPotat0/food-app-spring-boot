@@ -1,12 +1,11 @@
 package com.dom.food.category.controllers;
 
-import lombok.RequiredArgsConstructor;
-
+import com.dom.food.category.models.CategoryModel;
+import com.dom.food.category.services.CategoryService;
 import java.util.List;
-
+import lombok.RequiredArgsConstructor;
+import org.apache.http.client.HttpResponseException;
 import org.springframework.beans.factory.annotation.Autowired;
-// import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dom.food.category.models.CategoryModel;
-import com.dom.food.category.services.CategoryService;
+
+
+// import org.springframework.beans.factory.annotation.Autowired;
+
 
 @RestController
 @RequestMapping("/category")
@@ -28,19 +29,9 @@ public class CategoryController {
     @Autowired
     CategoryService categoryrService;
 
-    // public CategoryController(CategoryService categoryrService) {
-    // this.categoryrService = categoryrService;
-    // }
-
     @PostMapping("/create")
-    public ResponseEntity<?> createCategory(@RequestBody CategoryModel categoryModel) {
-        if (this.categoryrService.existByName(categoryModel)) {
-            return ResponseEntity.badRequest().body("category already exist");
-        }
-        CategoryModel category = this.categoryrService.createCategory(categoryModel);
-        return category != null
-                ? new ResponseEntity<>(category, HttpStatus.CREATED)
-                : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> createCategory(@RequestBody CategoryModel categoryModel) throws HttpResponseException {
+        return  ResponseEntity.created(null).body(this.categoryrService.createCategory(categoryModel));
     }
 
     @GetMapping()
@@ -54,18 +45,12 @@ public class CategoryController {
     }
 
     @PutMapping()
-    public ResponseEntity<?> updateCategory(@RequestBody CategoryModel categoryModel) {
-        if (this.categoryrService.existByName(categoryModel)) {
-            return ResponseEntity.badRequest().body("category already exist");
-        }
-        CategoryModel category = this.categoryrService.updateCategory(categoryModel);
-        return category != null
-                ? new ResponseEntity<>(category, HttpStatus.OK)
-                : new ResponseEntity<String>("failed", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> updateCategory(@RequestBody CategoryModel categoryModel) throws HttpResponseException {
+        return  ResponseEntity.ok().body(this.categoryrService.updateCategory(categoryModel));
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteCategory(@PathVariable("id") String id) {
+    public ResponseEntity<Boolean> deleteCategory(@PathVariable("id") String id) throws HttpResponseException, NumberFormatException {
         return ResponseEntity.ok().body(this.categoryrService.deleteCategory(Integer.parseInt(id)));
     }
 }

@@ -4,6 +4,7 @@ import com.dom.food.review.models.ReviewModel;
 import com.dom.food.review.services.ReviewService;
 import java.util.List;
 import javax.validation.Valid;
+import org.apache.http.client.HttpResponseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 
+
 // import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -30,7 +32,7 @@ public class ReviewController {
     ReviewService reviewService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createReview(@Valid @RequestBody ReviewModel reviewModel) {
+    public ResponseEntity<?> createReview(@Valid @RequestBody ReviewModel reviewModel) throws HttpResponseException {
         return new ResponseEntity<ReviewModel>(this.reviewService.createReview(reviewModel), HttpStatus.CREATED);
     }
 
@@ -40,16 +42,12 @@ public class ReviewController {
     }
 
     @DeleteMapping()
-    public ResponseEntity<Boolean> deleteReview(@RequestBody ReviewModel reviewModel) {
+    public ResponseEntity<Boolean> deleteReview(@RequestBody ReviewModel reviewModel) throws HttpResponseException {
         return new ResponseEntity<Boolean>(this.reviewService.deleteReview(reviewModel) , HttpStatus.OK);
     }
 
     @PutMapping()
-    public ResponseEntity<?> updateReview(@RequestBody ReviewModel reviewModel) {
-        // return this.reviewService.updateReview(reviewModel);
-        ReviewModel review = this.reviewService.updateReview(reviewModel);
-        return review != null ?
-            new ResponseEntity<ReviewModel>(review, HttpStatus.OK) :
-            new ResponseEntity<>("fail", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> updateReview(@RequestBody ReviewModel reviewModel) throws HttpResponseException {
+        return new ResponseEntity<ReviewModel>(this.reviewService.updateReview(reviewModel), HttpStatus.OK);
     }
 }

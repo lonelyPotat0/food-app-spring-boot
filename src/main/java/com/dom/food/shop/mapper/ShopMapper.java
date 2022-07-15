@@ -1,10 +1,10 @@
 package com.dom.food.shop.mapper;
 
+import com.dom.food.shop.model.ShopModel;
 import java.util.List;
-
 import org.apache.ibatis.annotations.Mapper;
 
-import com.dom.food.shop.model.ShopModel;
+
 
 @Mapper
 public interface ShopMapper {
@@ -13,7 +13,7 @@ public interface ShopMapper {
 
     boolean updateShop(ShopModel shop);
 
-    boolean deleteShop(Integer id);
+    boolean deleteShop(ShopModel shop);
 
     List<ShopModel> getAllShop();
 

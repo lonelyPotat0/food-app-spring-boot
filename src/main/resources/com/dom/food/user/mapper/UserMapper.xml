@@ -55,6 +55,7 @@
                 role,
                 address,
                 email,
+                password,
                 create_at as createAt,
                 update_at as updateAt
         from `tbl_user`
@@ -68,7 +69,6 @@
          <set>
              <if test="fullname != null">fullname = #{fullname},</if>
              <if test="phone != null">phone = #{phone}</if>
-             <!-- <if test="password != null">fullname = #{password}</if> -->
          </set>
                 WHERE user_id = #{userId}
     </update>
@@ -85,7 +85,11 @@
         DELETE from `tbl_user` where user_id = #{id}
     </delete>
 
-     
+    <update id="updatePassword" parameterType="hashmap">
+        UPDATE `tbl_user`
+         <set> password = #{newPassword} </set>
+                WHERE user_id = #{userId}
+    </update>
 
     
 </mapper>

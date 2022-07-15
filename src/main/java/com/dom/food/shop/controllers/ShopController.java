@@ -4,6 +4,7 @@ import com.dom.food.shop.model.ShopModel;
 import com.dom.food.shop.services.ShopService;
 import java.util.List;
 import javax.validation.Valid;
+import org.apache.http.client.HttpResponseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 
+
 @RestController
 @RequestMapping("/shop")
 public class ShopController {
@@ -29,11 +31,8 @@ public class ShopController {
     ShopService shopService;
 
     @PostMapping("/create")
-    public ResponseEntity<?> createShop(@Valid @RequestBody ShopModel shop) {
-        ShopModel createShop = this.shopService.createShop(shop);
-        return createShop == null ? 
-            new ResponseEntity<>("failed", HttpStatus.BAD_REQUEST)
-            : new ResponseEntity<ShopModel>(createShop, HttpStatus.CREATED);
+    public ResponseEntity<?> createShop(@Valid @RequestBody ShopModel shop) throws HttpResponseException {
+        return new ResponseEntity<>(this.shopService.createShop(shop), HttpStatus.CREATED);
     }
 
     @GetMapping()
@@ -47,16 +46,13 @@ public class ShopController {
     }
 
     @PutMapping()
-    public ResponseEntity<?> updateShop(@RequestBody ShopModel shop) {
-        ShopModel updatedShop = this.shopService.updateShop(shop);
-        return updatedShop == null ? 
-            new ResponseEntity<>("update failed", HttpStatus.BAD_REQUEST)
-            : new ResponseEntity<ShopModel>(updatedShop, HttpStatus.OK);
+    public ResponseEntity<?> updateShop(@RequestBody ShopModel shop) throws HttpResponseException {
+        return new ResponseEntity<ShopModel>(this.shopService.updateShop(shop), HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Boolean> deleteShop(@PathVariable("id") String id) {
-        return ResponseEntity.ok().body(this.shopService.deleteShop(Integer.parseInt(id)));
+    @DeleteMapping()
+    public ResponseEntity<Boolean> deleteShop(@RequestBody ShopModel shop) throws HttpResponseException, NumberFormatException {
+        return ResponseEntity.ok().body(this.shopService.deleteShop(shop));
     }
 
 }

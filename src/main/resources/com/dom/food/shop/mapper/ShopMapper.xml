@@ -56,8 +56,8 @@
     </update>
 
 
-    <delete id="deleteShop" parameterType="int">
-        DELETE from `tbl_shop` where shop_id = #{id}
+    <delete id="deleteShop" parameterType="hashmap">
+        DELETE from `tbl_shop` where shop_id = #{shopId} and user_id = #{userId}
     </delete>
 
 </mapper>
