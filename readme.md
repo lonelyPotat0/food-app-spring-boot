@@ -6,6 +6,7 @@
 - [x] Login
 - [x] create user
 - [x] update user
+- [x] update password
 - [x] get user info
 - [x] delete user
 - [x] create shop
