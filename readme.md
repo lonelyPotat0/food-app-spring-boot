@@ -28,8 +28,7 @@
 - [x] update cart
 - [x] delete item from cart
 - [x] chcekout
-- [x] get order list for shop
-- [ ] get order list for customer
+- [x] get order list
 - [x] confirm delivery
 - [x] confirm payment
 - [x] create review
@@ -38,7 +37,7 @@
 - [x] delete review
 - [x] throttle api request when too many search (in menu)
 - [ ] increase price when order same menu for 3 days ( I wish to use redis but my ram is only 4GB with 8 years old core i3) 
-- [ ] make unit test cases 
+- [x] make unit test cases 
 - [ ] Dockerize project
 ```
 
@@ -434,13 +433,16 @@ body
 	"deliveryAddress" : "phnom penh"
 }
 ```
-#### get order list by shop
+#### get order list
 
 method: GET
 
+```
+parameters: userId or shopId
+```
 path
 ```
- /order/{shopId}
+ /order
 ```
 
 #### confirm delivered
@@ -522,8 +524,6 @@ path
 #### delete review
 
 method: DELETE
-
-role: ROLE_DELIVERY
 
 path
 ```
