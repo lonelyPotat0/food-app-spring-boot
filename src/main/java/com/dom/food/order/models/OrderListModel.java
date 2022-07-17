@@ -1,28 +1,30 @@
 package com.dom.food.order.models;
 
-public class OrdersModel {
-    private String image;
-    private Integer quantity;
+public class OrderListModel {
     private Integer orderId;
-    private double grandTotal;
-    private boolean delivered;
+    private Integer customerId;
+    private String deliveryAddress;
     private String customerName;
     private String customerPhone;
-    private String deliveryAddress;
     private String customerEmail;
-    private Integer customerId;
+    private String menuId;
+    private Integer quantity;
+    private Integer amount;
+    private double totalAmount;
+
+    private String image;
+    private boolean delivered;
     private String name;
     private String createAt;
     private String updateAt;
-
-    public OrdersModel() {
+    public OrderListModel() {
     }
 
-    public OrdersModel(String image, Integer quantity, Integer orderId, double grandTotal, boolean delivered, String customerName, String customerPhone, String deliveryAddress, String customerEmail, Integer customerId, String name, String createAt, String updateAt) {
+    public OrderListModel(String image, Integer quantity, Integer orderId, double totalAmount, boolean delivered, String customerName, String customerPhone, String deliveryAddress, String customerEmail, Integer customerId, String name, String createAt, String updateAt) {
         this.image = image;
         this.quantity = quantity;
         this.orderId = orderId;
-        this.grandTotal = grandTotal;
+        this.totalAmount = totalAmount;
         this.delivered = delivered;
         this.customerName = customerName;
         this.customerPhone = customerPhone;
@@ -34,6 +36,32 @@ public class OrdersModel {
         this.updateAt = updateAt;
     }
 
+
+    public String getMenuId() {
+        return this.menuId;
+    }
+
+    public void setMenuId(String menuId) {
+        this.menuId = menuId;
+    }
+
+    public Integer getAmount() {
+        return this.amount;
+    }
+
+    public void setAmount(Integer amount) {
+        this.amount = amount;
+    }
+
+    public double getTotalAmount() {
+        return this.totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    
     public String getImage() {
         return this.image;
     }
@@ -58,13 +86,6 @@ public class OrdersModel {
         this.orderId = orderId;
     }
 
-    public double getGrandTotal() {
-        return this.grandTotal;
-    }
-
-    public void setGrandTotal(double grandTotal) {
-        this.grandTotal = grandTotal;
-    }
 
     public boolean isDelivered() {
         return this.delivered;
@@ -142,24 +163,28 @@ public class OrdersModel {
         this.updateAt = updateAt;
     }
 
+
     @Override
     public String toString() {
         return "{" +
-            " image='" + getImage() + "'" +
-            ", quantity='" + getQuantity() + "'" +
-            ", orderId='" + getOrderId() + "'" +
-            ", grandTotal='" + getGrandTotal() + "'" +
-            ", delivered='" + isDelivered() + "'" +
+            " orderId='" + getOrderId() + "'" +
+            ", customerId='" + getCustomerId() + "'" +
+            ", deliveryAddress='" + getDeliveryAddress() + "'" +
             ", customerName='" + getCustomerName() + "'" +
             ", customerPhone='" + getCustomerPhone() + "'" +
-            ", deliveryAddress='" + getDeliveryAddress() + "'" +
             ", customerEmail='" + getCustomerEmail() + "'" +
-            ", customerId='" + getCustomerId() + "'" +
+            ", menuId='" + getMenuId() + "'" +
+            ", quantity='" + getQuantity() + "'" +
+            ", amount='" + getAmount() + "'" +
+            ", totalAmount='" + getTotalAmount() + "'" +
+            ", image='" + getImage() + "'" +
+            ", delivered='" + isDelivered() + "'" +
             ", name='" + getName() + "'" +
             ", createAt='" + getCreateAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +
             "}";
     }
+   
 
 
 

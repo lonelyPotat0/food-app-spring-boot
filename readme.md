@@ -52,11 +52,20 @@
 
 ### Run project 
 
+using maven cli
 ```console
 mvn clean install
 docker-compose up -d //start mongodb server
 mvn spring-boot:run
 ```
+
+using Docker
+
+```console
+./start.sh
+```
+
+
 	  or just use intellij/eclipse
 	  server run on port 8080
 

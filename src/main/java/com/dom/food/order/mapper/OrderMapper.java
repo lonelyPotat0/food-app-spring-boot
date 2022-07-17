@@ -2,8 +2,8 @@ package com.dom.food.order.mapper;
 
 import com.dom.food.order.models.CartItemModel;
 import com.dom.food.order.models.OrderDetailModel;
+import com.dom.food.order.models.OrderListModel;
 import com.dom.food.order.models.OrderModel;
-import com.dom.food.order.models.OrdersModel;
 import com.dom.food.order.models.PaymentModel;
 import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
@@ -32,7 +32,7 @@ public interface OrderMapper {
 
     boolean deleteOrder(Integer orderId);
 
-    List<OrdersModel> getOrderList(@Param("shopId") Integer shopId, @Param("userId") Integer userId);
+    List<OrderListModel> getOrderList(@Param("shopId") Integer shopId, @Param("userId") Integer userId);
 
     boolean createPayment(PaymentModel payment);
 

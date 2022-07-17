@@ -3,8 +3,8 @@ package com.dom.food.order.services;
 import com.dom.food.order.mapper.OrderMapper;
 import com.dom.food.order.models.CartItemModel;
 import com.dom.food.order.models.OrderDetailModel;
+import com.dom.food.order.models.OrderListModel;
 import com.dom.food.order.models.OrderModel;
-import com.dom.food.order.models.OrdersModel;
 import com.dom.food.order.models.PaymentModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +61,7 @@ public class OrderService {
         throw new HttpResponseException(400, "fail");
     }
 
-    public List<OrdersModel> getOrderList(Integer shopId, Integer userId) {
+    public List<OrderListModel> getOrderList(Integer shopId, Integer userId) {
         return this.orderMapper.getOrderList(shopId, userId);
     }
 

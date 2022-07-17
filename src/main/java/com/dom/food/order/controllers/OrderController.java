@@ -1,8 +1,8 @@
 package com.dom.food.order.controllers;
 
 import com.dom.food.order.models.CartItemModel;
+import com.dom.food.order.models.OrderListModel;
 import com.dom.food.order.models.OrderModel;
-import com.dom.food.order.models.OrdersModel;
 import com.dom.food.order.models.PaymentModel;
 import com.dom.food.order.services.OrderService;
 import java.util.List;
@@ -57,7 +57,7 @@ public class OrderController {
     }
 
     @GetMapping()
-    public @ResponseBody List<OrdersModel> getOrderList(@RequestParam(defaultValue = "0") String shopId, @RequestParam(defaultValue = "0") String userId) {
+    public @ResponseBody List<OrderListModel> getOrderList(@RequestParam(defaultValue = "0") String shopId, @RequestParam(defaultValue = "0") String userId) {
         return this.orderService.getOrderList(Integer.parseInt(shopId), Integer.parseInt(userId));
     }
 

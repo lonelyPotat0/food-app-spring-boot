@@ -18,6 +18,8 @@ public class CartItemModel {
     private Integer categoryId;
     private Integer shopId;
     private double totalPrice;
+    private String createAt;
+    private String updateAt;
 
 
     public CartItemModel() {
@@ -36,6 +38,22 @@ public class CartItemModel {
         this.totalPrice = totalPrice;
     }
 
+
+    public String getCreateAt() {
+        return this.createAt;
+    }
+
+    public void setCreateAt(String createAt) {
+        this.createAt = createAt;
+    }
+
+    public String getUpdateAt() {
+        return this.updateAt;
+    }
+
+    public void setUpdateAt(String updateAt) {
+        this.updateAt = updateAt;
+    }
 
     public Integer getCartItemId() {
         return this.cartItemId;
@@ -127,20 +145,24 @@ public class CartItemModel {
         return this;
     }
 
+
     @Override
     public String toString() {
         return "{" +
-                " cartItemId='" + getCartItemId() + "'" +
-                ", menuId='" + getMenuId() + "'" +
-                ", userId='" + getUserId() + "'" +
-                ", quantity='" + getQuantity() + "'" +
-                ", name='" + getName() + "'" +
-                ", image='" + getImage() + "'" +
-                ", price='" + getPrice() + "'" +
-                ", categoryId='" + getCategoryId() + "'" +
-                ", shopId='" + getShopId() + "'" +
-                ", totalPrice='" + getTotalPrice() + "'" +
-                "}";
+            " cartItemId='" + getCartItemId() + "'" +
+            ", menuId='" + getMenuId() + "'" +
+            ", userId='" + getUserId() + "'" +
+            ", quantity='" + getQuantity() + "'" +
+            ", name='" + getName() + "'" +
+            ", image='" + getImage() + "'" +
+            ", price='" + getPrice() + "'" +
+            ", categoryId='" + getCategoryId() + "'" +
+            ", shopId='" + getShopId() + "'" +
+            ", totalPrice='" + getTotalPrice() + "'" +
+            ", createAt='" + getCreateAt() + "'" +
+            ", updateAt='" + getUpdateAt() + "'" +
+            "}";
     }
+    
 
 }

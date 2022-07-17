@@ -121,17 +121,18 @@
         DELETE from `tbl_order` where order_id = #{orderId}
     </delete>
 
-    <select id="getOrderList" parameterType="map" resultType="map">
+    <select id="getOrderList" parameterType="map" resultType="com.dom.food.order.models.OrderListModel">
         select 
             o.order_id as orderId,
             o.customer_id as customerId,
             o.delivery_address as deliveryAddress,
-            o.grand_total as grandTotal,
             u.fullname as customerName,
             u.phone as customerPhone,
             u.email as customerEmail,
             od.menu_id as menuId,
             od.number_served as quantity,
+            od.amount as amount,
+            od.total_amount as totalAmount,
             od.delivered,
             m.name,
             m.image,

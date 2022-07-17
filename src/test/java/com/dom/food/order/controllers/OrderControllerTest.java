@@ -3,11 +3,10 @@ package com.dom.food.order.controllers;
 
 import com.dom.food.order.models.CartItemModel;
 import com.dom.food.order.models.OrderModel;
-import com.dom.food.order.models.OrdersModel;
+import com.dom.food.order.models.OrderListModel;
 import com.dom.food.order.models.PaymentModel;
 import com.dom.food.order.services.OrderService;
 import com.google.gson.Gson;
-import org.aspectj.weaver.ast.Or;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +20,6 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -47,7 +45,7 @@ class OrderControllerTest {
         CartItemModel cart = new CartItemModel();
         cart.setUserId(1).setMenuId(1).setQuantity(2);
         CartItemModel cartResponse = new CartItemModel();
-        cartResponse.setCartItemId(1).setMenuId(1).setQuantity(2).setPrice(5).setTotalPrice(10);
+        cartResponse.setCartItemId(1).setMenuId(1 ).setQuantity(2).setPrice(5).setTotalPrice(10);
         Mockito.when(orderService.addToCart(cart)).thenReturn(cartResponse);
         String content = gson.toJson(cart);
         mvc.perform(post("/order/cart")
@@ -117,9 +115,9 @@ class OrderControllerTest {
 
     @Test
     void getOrderList() throws Exception {
-        List<OrdersModel> orders = new ArrayList<>();
-        orders.add(new OrdersModel(null, 1, 10, 10,false, "dom" , "098765432", "phnom penh", "potato@mail.com", 1 , "nugget", "2022-07-14T07:50:55.000+00:00" ,"2022-07-14T14:50:55" ));
-        orders.add(new OrdersModel(null, 1, 10, 10,false, "dom" , "098765432", "phnom penh", "potato@mail.com", 1 , "coca", "2022-07-14T07:50:55.000+00:00" ,"2022-07-14T14:50:55" ));
+        List<OrderListModel> orders = new ArrayList<>();
+        orders.add(new OrderListModel(null, 1, 10, 10,false, "dom" , "098765432", "phnom penh", "potato@mail.com", 1 , "nugget", "2022-07-14T07:50:55.000+00:00" ,"2022-07-14T14:50:55" ));
+        orders.add(new OrderListModel(null, 1, 10, 10,false, "dom" , "098765432", "phnom penh", "potato@mail.com", 1 , "coca", "2022-07-14T07:50:55.000+00:00" ,"2022-07-14T14:50:55" ));
         Mockito.when(orderService.getOrderList(1 ,1 )).thenReturn(orders);
         mvc.perform(get("/order?userId=1&shopId=1")
                 .contentType(MediaType.APPLICATION_JSON)
