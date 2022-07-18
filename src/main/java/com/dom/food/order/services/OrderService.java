@@ -6,11 +6,14 @@ import com.dom.food.order.models.OrderDetailModel;
 import com.dom.food.order.models.OrderListModel;
 import com.dom.food.order.models.OrderModel;
 import com.dom.food.order.models.PaymentModel;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.http.client.HttpResponseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 
 
@@ -21,7 +24,9 @@ public class OrderService {
     OrderMapper orderMapper;
 
     public CartItemModel addToCart(CartItemModel cart) throws HttpResponseException {
-
+        if (this.existInPrevious2DayOrder( cart.getUserId() ,cart.getMenuId())) {
+                cart.setIncreasePrice(true);
+        }
         CartItemModel checkCartItem = this.orderMapper.checkCartItemExists(cart);
 
         if (checkCartItem != null) {
@@ -54,9 +59,10 @@ public class OrderService {
         throw new HttpResponseException(400, "failed");
     }
 
-    public boolean checkOutCart(OrderModel order) throws HttpResponseException {
-        if (this.createOrder(order)) {
-            return true;
+    public OrderModel checkOutCart(OrderModel order) throws HttpResponseException {
+        OrderModel newOrder = this.createOrder(order);
+        if (newOrder != null) {
+            return newOrder;
         }
         throw new HttpResponseException(400, "fail");
     }
@@ -82,7 +88,7 @@ public class OrderService {
         throw new HttpResponseException(400, "fail");
     }
 
-    private boolean createOrder(OrderModel order) throws HttpResponseException {
+    private OrderModel createOrder(OrderModel order) throws HttpResponseException {
         List<CartItemModel> cartItems = this.getCartItems(order.getCustomerId());
         if (cartItems.size() == 0) {
             throw new HttpResponseException(404, " no item in cart");
@@ -91,15 +97,20 @@ public class OrderService {
             order.setGrandTotal(order.getGrandTotal() + item.getPrice() * item.getQuantity());
         }
         if (this.orderMapper.createOrder(order) > 0) {
-            return this.createOrderDetail(order, cartItems) ? true : false;
+            return this.createOrderDetail(order, cartItems) ? order : null;
         }
-        return false;
+        throw new HttpResponseException(400, "fail");
+        // return false;
     }
 
     private boolean createOrderDetail(OrderModel order, List<CartItemModel> cartItems) throws HttpResponseException {
         List<OrderDetailModel> orderDetail = new ArrayList<OrderDetailModel>();
         Integer index = 0;
         for (CartItemModel item : cartItems) {
+            if (item.getIncreasePrice()) {
+                // double price = ;
+                item.setPrice(item.getPrice() + ( item.getPrice() * 0.05 ));
+            }
             orderDetail.add(new OrderDetailModel(order.getOrderId(), item.getMenuId(), item.getQuantity(),
                     item.getPrice(), item.getUserId(), item.getShopId()));
             index++;
@@ -116,6 +127,21 @@ public class OrderService {
         }
         return false;
 
+    }
+
+    public boolean existInPrevious2DayOrder(Integer userId, Integer menuId) {
+        LocalDate now = LocalDate.now();
+        String today = (now.format(DateTimeFormatter.ISO_DATE));
+        String yesterday = (now.minusDays(1)).format(DateTimeFormatter.ISO_DATE);
+        String dayBeforeYesterday = (now.minusDays(2)).format(DateTimeFormatter.ISO_DATE);
+        String towDaysBeforeYesterday = (now.minusDays(2)).format(DateTimeFormatter.ISO_DATE);
+        System.out.println(now);
+        System.out.println(yesterday);
+        System.out.println(dayBeforeYesterday);
+        if (this.orderMapper.checkOrderByDate(today, dayBeforeYesterday, userId, menuId) && this.orderMapper.checkOrderByDate(yesterday, towDaysBeforeYesterday, userId, menuId)) {
+            return true;
+        }
+        return false;
     }
 
 }

@@ -102,7 +102,7 @@ class OrderControllerTest {
     void checkOut() throws Exception {
         OrderModel order = new OrderModel();
         order.setCustomerId(1).setDeliveryAddress("phnom penh");
-        Mockito.when(orderService.checkOutCart(order)).thenReturn(true);
+        Mockito.when(orderService.checkOutCart(order)).thenReturn(order);
         String content = gson.toJson(order);
         mvc.perform(post("/order/cart/checkout")
                 .contentType(MediaType.APPLICATION_JSON)

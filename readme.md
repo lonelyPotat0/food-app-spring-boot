@@ -37,7 +37,7 @@
 - [x] get all review for menu
 - [x] delete review
 - [x] throttle api request when too many search (in menu)
-- [ ] increase price when order same menu for 3 days ( I wish to use redis but my ram is only 4GB with 8 years old core i3) 
+- [x] increase price when order same menu for 3 days ( I wish to use redis but my ram is only 4GB with 8 years old core i3) 
 - [x] make unit test cases 
 - [ ] Dockerize project
 ```

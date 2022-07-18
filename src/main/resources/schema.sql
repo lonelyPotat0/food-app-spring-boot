@@ -93,6 +93,7 @@ CREATE TABLE IF NOT EXISTS `tbl_cart_item` (
 	`menu_id` INT NOT NULL,
 	`quantity` INT NOT NULL,
     `user_id` INT NOT NULL,
+    `increase_price` BOOLEAN DEFAULT false,
     `create_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     `update_at` DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (`cart_item_id`)

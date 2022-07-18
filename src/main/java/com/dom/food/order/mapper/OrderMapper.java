@@ -37,4 +37,6 @@ public interface OrderMapper {
     boolean createPayment(PaymentModel payment);
 
     boolean confirmDelivered(Integer orderId);
+
+    boolean checkOrderByDate(@Param("dateBefore") String dateBefore, @Param("dateAfter") String dateAfter,@Param("userId") Integer userId, @Param("menuId") Integer menuId );
 }

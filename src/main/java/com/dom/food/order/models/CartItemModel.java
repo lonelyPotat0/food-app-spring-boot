@@ -18,6 +18,7 @@ public class CartItemModel {
     private Integer categoryId;
     private Integer shopId;
     private double totalPrice;
+    private boolean increasePrice;
     private String createAt;
     private String updateAt;
 
@@ -36,6 +37,19 @@ public class CartItemModel {
         this.categoryId = categoryId;
         this.shopId = shopId;
         this.totalPrice = totalPrice;
+    }
+
+
+    public boolean isIncreasePrice() {
+        return this.increasePrice;
+    }
+
+    public boolean getIncreasePrice() {
+        return this.increasePrice;
+    }
+
+    public void setIncreasePrice(boolean increasePrice) {
+        this.increasePrice = increasePrice;
     }
 
 
@@ -104,7 +118,7 @@ public class CartItemModel {
         return this.price;
     }
 
-    public CartItemModel setPrice(float price) {
+    public CartItemModel setPrice(double price) {
         this.price = price;
         return this;
     }
@@ -145,7 +159,6 @@ public class CartItemModel {
         return this;
     }
 
-
     @Override
     public String toString() {
         return "{" +
@@ -159,10 +172,12 @@ public class CartItemModel {
             ", categoryId='" + getCategoryId() + "'" +
             ", shopId='" + getShopId() + "'" +
             ", totalPrice='" + getTotalPrice() + "'" +
+            ", increasePrice='" + isIncreasePrice() + "'" +
             ", createAt='" + getCreateAt() + "'" +
             ", updateAt='" + getUpdateAt() + "'" +
             "}";
     }
+    
     
 
 }

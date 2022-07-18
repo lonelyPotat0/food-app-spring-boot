@@ -6,12 +6,14 @@
         INSERT into `tbl_cart_item` (
                 user_id,
                 menu_id,
-                quantity
+                quantity,
+                increase_price
         )
         VALUES (
                 #{userId},
                 #{menuId},
-                #{quantity}
+                #{quantity},
+                #{increasePrice}
         )
     </insert>
 
@@ -32,9 +34,23 @@
             menu.category_id as categoryId,
             menu.name as name,
             menu.image as image,
-            menu.price as price,
+            CASE
+                WHEN cart.increase_price = true
+                THEN
+                    menu.price + (menu.price * 0.05)
+                ELSE
+                    menu.price
+            END AS price,
+            <!-- menu.price as price, -->
             cart.quantity as quantity,
-            menu.price * cart.quantity as totalPrice,
+            CASE
+                WHEN cart.increase_price = true
+                THEN
+                cart.quantity * (menu.price + (menu.price * 0.05))
+                ELSE
+                menu.price * cart.quantity
+            END AS totalPrice,
+            <!-- menu.price * cart.quantity as totalPrice, -->
             cart.create_at as createAt,
             cart.update_at as updateAt
 
@@ -47,6 +63,7 @@
         UPDATE `tbl_cart_item`
         <set>
             <if test="quantity != null">quantity = #{quantity},</if>
+            <if test="increasePrice != null">increase_price = #{increasePrice},</if>
         </set>
         where cart_item_id = #{cartItemId} and user_id = #{userId}
     </update>
@@ -156,5 +173,12 @@
             <set>delivered = true </set>
         where order_id = #{orderId}
     </update>
+
+    <select id="checkOrderByDate" parameterType="map" resultType="boolean">
+        SELECT  COUNT(*) as total from tbl_order_detail where create_at &lt; #{dateBefore} 
+                                and create_at &gt;= #{dateAfter} 
+                                and menu_id = ${menuId} 
+                                and customer_id = #{userId}
+    </select>
 
 </mapper>
