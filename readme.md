@@ -123,7 +123,6 @@ body
     "phone": "01244556",
 	"fullname": "yim dom",
     "userId": 2
-    //limited to only phone for now
 }
 ```
 
