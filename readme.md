@@ -41,7 +41,7 @@
 - [x] throttle api request when too many search (in menu)
 - [x] increase price when order same menu for 3 days ( I wish to use redis but my ram is only 4GB with 8 years old core i3) 
 - [x] make unit test cases 
-- [ ] Dockerize project
+- [ ] Dockerise project
 ```
 
 ### First you may need to install
@@ -57,7 +57,7 @@
 using maven cli
 ```console
 mvn clean install
-docker-compose up -d //start mongodb server
+docker-compose up -d //start mysql server
 mvn spring-boot:run
 ```
 
