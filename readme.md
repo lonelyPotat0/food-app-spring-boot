@@ -525,8 +525,6 @@ body
 
 method: GET
 
-role: ROLE_DELIVERY
-
 path
 ```
  /review/{menuId}
