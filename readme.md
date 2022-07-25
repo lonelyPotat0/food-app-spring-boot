@@ -73,7 +73,7 @@ using Docker
 
 ## APi document
 
- All requests are post request  (Everything else except login and signup required Bearer token)
+ Every requests except login and signup required Bearer token
 
 #### Login
 
