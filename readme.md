@@ -30,6 +30,8 @@
 - [x] delete item from cart
 - [x] chcekout
 - [x] get order list
+- [ ] assign to nearest delivery man
+- [ ] confirm pickup
 - [x] confirm delivery
 - [x] confirm payment
 - [x] create review
